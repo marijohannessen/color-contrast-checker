@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Color Contrast Checker</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Is it <span>accessible</span>, though? </h1>
+      <h2>
+        <a>WCAG 2.0 Level AA</a> Color Contrast Checker
+      </h2>
+    </header>
+    <div class="colors">
+      <div class="color-container">
+        <div class="color1">
+          <div class="input-hex">
+            <input type="text" id="color1" placeholder="#FFFFFF" class="colorInput" value="#FFFFFF" />
+          </div>
+          <div class="text-box">
+            Forage post-ironic celiac, sustainable kinfolk 90's cred microdosing <span>narwhal 3 wolf moon tousled raw denim.</span>
+          </div>
+        </div>
+        <div class="color2">
+          <div class="input-hex">
+            <input type="text" id="color2" class="colorInput" placeholder="#000000" value="#000000" />
+          </div>
+          <div class="text-box">
+            Forage post-ironic celiac, sustainable kinfolk 90's cred microdosing <span>narwhal 3 wolf moon tousled raw denim.</span>
+          </div>
+        </div>
+      </div>
+      <div class="score">
+        <p class="verdict"></p>
+        <p class="numbers"></p>
+        <p class="message"></p>
+      </div>
+        <div class="footer">
+          <a>Made by Mari Johannessen</a>
+        </div>
+    </div>
+  </div>
+  <script src="js/script.js"></script>
+</body>
+</html>
