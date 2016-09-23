@@ -1,26 +1,15 @@
 * {
   box-sizing: border-box;
   padding: 0;
-   margin: 0;
+  margin: 0;
   font-family: 'Helvetica', sans-serif;
 }
 
-@mixin text-contrast($n) {
-  $color-brightness: round((red($n) * 299) + (green($n) * 587) + (blue($n) * 114) / 1000);
-  $light-color: round((red(#ffffff) * 299) + (green(#ffffff) * 587) + (blue(#ffffff) * 114) / 1000);
+body {
 
-  @if abs($color-brightness) < ($light-color / 2) {
-    color: white;
+  @media screen and (min-width: 730px) {
+    height: 100vh;
   }
-
-  @else {
-    color: black;
-  }
-}
-
-body,
-html {
-  height: 100vh;
 }
 
 .container {
@@ -37,33 +26,42 @@ html {
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-  padding: 1rem 1.5rem;
-  margin-bottom: 1.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
 
   h1 {
-  font-size: 2rem;
-  margin-bottom: .25rem;
+  font-size: 1.875rem;
   font-weight: 400;
   letter-spacing: 1px;
   line-height: 1.5;
   font-family: 'Helvetica';
+  transition: .3s ease-in-out;
 
     span {
       font-weight: 700;
     }
+
+    @media screen and (min-width: 730px) {
+      font-size: 2rem;
+    }
   }
 
   h2 {
-    font-size: 1.25rem;
+    font-size: .875rem;
     font-weight: 400;
     letter-spacing: 1px;
+    line-height: 1.5;
+    transition: .3s ease-in-out;
+
+    @media screen and (min-width: 730px) {
+      font-size: 1rem;
+    }
   }
 
   a {
     text-decoration: none;
     border-bottom: 1px solid black;
     cursor: pointer;
-    transition: .25s;
 
     &:hover {
       color: magenta;
@@ -78,7 +76,6 @@ html {
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
-  border-top: 1px solid #efefef;
   position: relative;
   width: 100%;
   height: 100%;
@@ -87,12 +84,18 @@ html {
 .color-container {
   display: flex;
   align-items: center;
-  position: absolute;
+  flex-direction: column;
+  position: static;
   width: 100%;
   height: 100%;
-  left: 0;
-  top: 0;
-  z-index: 2;
+
+  @media screen and (min-width: 730px) {
+    flex-direction: row;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+  }
 }
 
 .color2 {
@@ -102,22 +105,29 @@ html {
 .color1,
 .color2 {
   display: flex;
-  width: 50%;
+  width: 100%;
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-  height: 100%;
+  max-height: 400px;
+  padding-bottom: 3rem;
+  transition: .3s ease-in-out;
+
+  @media screen and (min-width: 730px) {
+    width: 50%;
+    height: 100%;
+    max-height: 100%;
   }
+}
 
 .text-box {
-  margin-top: 2rem;
-  width: 340px;
-  padding: 1.5rem 1.5rem;
+  margin-top: 3rem;
+  width: 80%;
+  padding: 2rem;
   font-weight: 400;
-  line-height: 1.25;
+  line-height: 1.5;
   letter-spacing: 1px;
   font-family: 'Helvetica';
-    box-shadow: 0 3px 0 rgba(0,0,0,0.25), 0 2px 4px rgba(0,0,0,0.45);
 
   span {
     font-weight: 700;
@@ -125,12 +135,11 @@ html {
 }
 
 .input-hex {
-  margin: 1rem 4rem 0;
+  margin: 0;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-    box-shadow: 0 3px 0 rgba(0,0,0,0.25), 0 2px 4px rgba(0,0,0,0.45);
-  margin-top: 2rem;
 
   input {
     display: flex;
@@ -138,80 +147,135 @@ html {
     text-align: center;
     align-items: center;
     padding: 1rem 1rem 1rem .75rem;
+    width: 100%;
     border: none;
-    font-size: 1.25rem;
+    font-size: 1.75rem;
+    text-transform: uppercase;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     outline: 0;
+    border: 1px solid #bbb;
     transition: .3s ease-in-out;
-    border: 1px solid #efefef;
 
     &::-webkit-input-placeholder {
       color: black;
     }
+
+    .color2 & {
+       border-left: 0;
+    }
+  }
+}
+
+.fixed-content {
+  position: static;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.25), 0 2px 4px rgba(0,0,0,0.45);
+
+  @media screen and (min-width: 730px) {
+    position: absolute;
+    bottom: 5rem;
+    max-width: 600px;
+    z-index: 10;
   }
 }
 
 .score {
-  position: absolute;
-  bottom: 4rem;
   background-color: white;
   opacity: 1;
   z-index: 5;
-  padding: 1.5rem 1rem;
+  padding: 1rem 1rem 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   color: black;
-    box-shadow: 0 3px 0 rgba(0,0,0,0.25), 0 2px 4px rgba(0,0,0,0.45);
+
   p {
     text-align: center;
     opacity: 1;
-    padding: 0 3rem;
+    padding: 0;
+
+    @media screen and (min-width: 730px) {
+      padding: 0 3rem;
+    }
 
     &.verdict {
-      font-size: 3rem;
+      font-size: 2rem;
       font-weight: 700;
-      margin-bottom: .5rem;
+      margin: .75rem 0;
+
+      @media screen and (min-width: 730px) {
+        font-size: 3rem;
+        margin-bottom: .5rem;
+      }
     }
 
     &.numbers {
-      -webkit-font-smoothing: antialiased;
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       font-weight: 700;
       letter-spacing: 1px;
+      color: black;
+
+      span {
+
+        &.approved {
+          color: #0A710A;
+        }
+
+        &.nope {
+          color: red;
+        }
+      }
     }
 
     &.message {
-      margin-top: .25rem;
-      line-height: 1.5;
-      font-size: .9rem;
+      margin-top: .75rem;
+      line-height: 1;
+      font-size: 1rem;
       letter-spacing: 1px;
 
       span {
         font-weight: 700;
+      }
+
+      @media screen and (min-width: 730px) {
+        font-size: .9rem;
+      }
+
+      .verdict-link {
+        font-size: .75rem;
+        color: #222;
       }
     }
   }
 }
 
 .footer {
-  position: absolute;
-  width: 220px;
   background-color: white;
-  height: 30px;
   color: black;
-  z-index: 6;
-  bottom: 1rem;
-  right: 40vw;
-  padding: .25rem;
-  font-size: .75rem;
-  font-weight: 700;
+  padding: .4rem .25rem;
+  font-size: .65rem;
+  font-weight: 400;
   letter-spacing: 1px;
+  color: #333;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   -webkit-font-smoothing: antialiased;
-    box-shadow: 0 3px 0 rgba(0,0,0,0.25), 0 2px 4px rgba(0,0,0,0.45);
+
+  a {
+    color: black;
+    font-weight: 400;
+  }
+
+  @media screen and (min-width: 730px) {
+    position: absolute;
+    width: 200px;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 6;
+  }
 }

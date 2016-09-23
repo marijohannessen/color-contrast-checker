@@ -71,23 +71,38 @@ const updateAll = () => {
   colorTwoTextBox.style.color = colorTwo.value;
   let colorOneHex = hexToRgb(colorOne.value);
   let colorTwoHex = hexToRgb(colorTwo.value);
-  scoreBox.querySelector('.numbers').innerHTML = `<span>Score:</span> ${calculateRatio(colorTwoHex, colorOneHex).toFixed(2)}`;
   const message = scoreBox.querySelector('.message');
   const verdict = scoreBox.querySelector('.verdict');
   if (calculateRatio(colorOneHex, colorTwoHex).toFixed(2) > 4.5) {
-    verdict.textContent = `You're good`;
-    message.innerHTML = `You can use <span>${colorOne.value}</span> with <span>${colorTwo.value}</span>`;
-   } else {
-     verdict.textContent = `NO`;
-    message.innerHTML = `You can not use <span>${colorOne.value}</span> with <span>${colorTwo.value}</span>`;
+    scoreBox.querySelector('.numbers').innerHTML = `Contrast Ratio: <span class="approved">${calculateRatio(colorTwoHex, colorOneHex).toFixed(2)}</span>`;
+    verdict.textContent = `Yes, go for it.`;
+    message.innerHTML = `You can indeed use <span>${colorOne.value}</span> with <span>${colorTwo.value}</span>.<br><br><a href="#" class="verdict-link">Learn More</a>`;
+  } else if (calculateRatio(colorOneHex, colorTwoHex).toFixed(2) < 5.0 && calculateRatio(colorOneHex, colorTwoHex).toFixed(2) > 4.5) {
+    scoreBox.querySelector('.numbers').innerHTML = `Contrast Ratio: <span class="approved">${calculateRatio(colorTwoHex, colorOneHex).toFixed(2)}</span>`;
+    verdict.textContent = `Yes, but use with caution.`;
+    message.innerHTML = `You can use <span>${colorOne.value}</span> with <span>${colorTwo.value}</span>, but you're close to 4.5 so consider making some adjustments.<br><br><a href="#" class="verdict-link">Explain please?</a>`;
+  } else if (calculateRatio(colorOneHex, colorTwoHex).toFixed(2) < 4.5 && calculateRatio(colorOneHex, colorTwoHex).toFixed(2) > 4.0) {
+    scoreBox.querySelector('.numbers').innerHTML = `Contrast Ratio: <span class="nope">${calculateRatio(colorTwoHex, colorOneHex).toFixed(2)}</span>`;
+    verdict.textContent = `No, but very close.`;
+    message.innerHTML = `You <span>can't</span> use <span>${colorOne.value}</span> with <span>${colorTwo.value}</span>.<br />You're close to 4.5, so try a darker or lighter variation of a color.<br><br><a href="#" class="verdict-link">Explain please?</a>`;
+  } else {
+    scoreBox.querySelector('.numbers').innerHTML = `Contrast Ratio: <span class="nope">${calculateRatio(colorTwoHex, colorOneHex).toFixed(2)}</span>`;
+    verdict.textContent = `No.`;
+    message.innerHTML = `You <span>can't</span> use <span>${colorOne.value}</span> with <span>${colorTwo.value}</span>.<br><br><a href="#" class="verdict-link">Why not?</a>`;
   }
 }
 
 window.onload = () => {
   updateAll();
 
-  document.querySelectorAll('input').forEach(input => {
+  [... document.querySelectorAll('input')].forEach(input => {
+    input.addEventListener('focus', () => {
+      input.setSelectionRange(0, input.value.length);
+    });
     input.addEventListener('change', () => {
+      if (!(input.value.substring(0, 1) === '#')) {
+        input.value = `#${input.value}`;
+      }
       updateAll();
     });
   });

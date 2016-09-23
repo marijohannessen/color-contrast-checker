@@ -23,17 +23,17 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('styles'));
 });
 
-gulp.task('js', function () {
-  return gulp.src('js/*.js')
-      .pipe(uglify())
-      .pipe(rename('script.min.js'))
-      .pipe(browserSync.reload({stream:true}))
-      .pipe(gulp.dest('js'))
-});
+// gulp.task('js', function () {
+//   return gulp.src('js/*.js')
+//       .pipe(uglify())
+//       .pipe(rename('script.min.js'))
+//       .pipe(browserSync.reload({stream:true}))
+//       .pipe(gulp.dest('js'))
+// });
 
 gulp.task('watch', function () {
     gulp.watch('styles/main.scss', ['sass']);
-    gulp.watch('js/*.js', ['js']);
+    // gulp.watch('js/*.js', ['js']);
     gulp.watch("*.html").on('change', browserSync.reload);
 });
 
