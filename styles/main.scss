@@ -7,8 +7,21 @@
 
 body {
 
-  @media screen and (min-width: 730px) {
+  @media screen and (min-width: 860px) {
     height: 100vh;
+  }
+}
+
+@mixin text-contrast($n) {
+  $color-brightness: round((red($n) * 299) + (green($n) * 587) + (blue($n) * 114) / 1000);
+  $light-color: round((red(#ffffff) * 299) + (green(#ffffff) * 587) + (blue(#ffffff) * 114) / 1000);
+
+  @if abs($color-brightness) < ($light-color / 2) {
+    color: white;
+  }
+
+  @else {
+    color: black;
   }
 }
 
@@ -26,11 +39,14 @@ body {
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  padding: 1rem 1.5rem 2rem;
+
+  @media screen and (min-width: 860px) {
+    padding: 1rem 1.5rem 2.5rem;
+  }
 
   h1 {
-  font-size: 1.875rem;
+  font-size: 1.75rem;
   font-weight: 400;
   letter-spacing: 1px;
   line-height: 1.5;
@@ -41,7 +57,7 @@ body {
       font-weight: 700;
     }
 
-    @media screen and (min-width: 730px) {
+    @media screen and (min-width: 860px) {
       font-size: 2rem;
     }
   }
@@ -50,11 +66,12 @@ body {
     font-size: .875rem;
     font-weight: 400;
     letter-spacing: 1px;
-    line-height: 1.5;
+    line-height: 1;
     transition: .3s ease-in-out;
+    margin-top: .25rem;
 
-    @media screen and (min-width: 730px) {
-      font-size: 1rem;
+    @media screen and (min-width: 860px) {
+      margin-top: 0;
     }
   }
 
@@ -89,7 +106,7 @@ body {
   width: 100%;
   height: 100%;
 
-  @media screen and (min-width: 730px) {
+  @media screen and (min-width: 860px) {
     flex-direction: row;
     position: absolute;
     left: 0;
@@ -109,11 +126,11 @@ body {
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-  max-height: 400px;
-  padding-bottom: 3rem;
+  max-height: 460px;
+  padding-bottom: 1rem;
   transition: .3s ease-in-out;
 
-  @media screen and (min-width: 730px) {
+  @media screen and (min-width: 860px) {
     width: 50%;
     height: 100%;
     max-height: 100%;
@@ -154,7 +171,7 @@ body {
     font-weight: 700;
     letter-spacing: 2px;
     outline: 0;
-    border: 1px solid #bbb;
+    border: 1px solid #E6E9EC;
     transition: .3s ease-in-out;
 
     &::-webkit-input-placeholder {
@@ -173,9 +190,9 @@ body {
   width: 100%;
   box-shadow: 0 3px 0 rgba(0,0,0,0.25), 0 2px 4px rgba(0,0,0,0.45);
 
-  @media screen and (min-width: 730px) {
+  @media screen and (min-width: 860px) {
     position: absolute;
-    bottom: 5rem;
+    bottom: 5%;
     max-width: 600px;
     z-index: 10;
   }
@@ -197,7 +214,7 @@ body {
     opacity: 1;
     padding: 0;
 
-    @media screen and (min-width: 730px) {
+    @media screen and (min-width: 860px) {
       padding: 0 3rem;
     }
 
@@ -206,7 +223,7 @@ body {
       font-weight: 700;
       margin: .75rem 0;
 
-      @media screen and (min-width: 730px) {
+      @media screen and (min-width: 860px) {
         font-size: 3rem;
         margin-bottom: .5rem;
       }
@@ -240,7 +257,7 @@ body {
         font-weight: 700;
       }
 
-      @media screen and (min-width: 730px) {
+      @media screen and (min-width: 860px) {
         font-size: .9rem;
       }
 
@@ -250,6 +267,92 @@ body {
       }
     }
   }
+}
+
+.input-range {
+  width: 80%;
+  display: flex;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+
+  input {
+    flex: 3;
+  }
+
+  p {
+    font-size: 1rem;
+    letter-spacing: 1px;
+    margin-top: .1rem;
+
+    &:first-child {
+      padding-right: .5rem;
+    }
+    &:last-child {
+      padding-left: .5rem;
+    }
+  }
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  margin: .5rem 0;
+  border: 2px solid black;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: .2rem;
+  cursor: pointer;
+  background: white;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  height: 2rem;
+  width: .75rem;
+  background: white;
+  border: 2px solid black;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -.9rem;
+
+  &:active {
+    background: darkgray;
+  }
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: .5rem;
+  cursor: pointer;
+  background: white;
+}
+
+input[type=range]::-moz-range-thumb {
+  height: 2rem;
+  width: 1rem;
+  background: white;
+  cursor: pointer;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: .5rem;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+input[type=range]::-ms-thumb {
+  height: 2rem;
+  width: 1rem;
+  background: white;
+  cursor: pointer;
 }
 
 .footer {
@@ -271,7 +374,7 @@ body {
     font-weight: 400;
   }
 
-  @media screen and (min-width: 730px) {
+  @media screen and (min-width: 860px) {
     position: absolute;
     width: 200px;
     bottom: 1rem;

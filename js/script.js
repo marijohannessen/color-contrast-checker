@@ -10,6 +10,33 @@ const hexToRgb = (hex) => {
       g: parseInt(result[2], 16),
       b: parseInt(result[3], 16)
   } : null;
+};
+
+function LightenDarkenColor(col, amt) {
+    var usePound = false;
+    if (col[0] == "#") {
+        col = col.slice(1);
+        usePound = true;
+    }
+    var num = parseInt(col,16);
+    var r = (num >> 16) + amt;
+    if (r > 255) r = 255;
+    else if  (r < 0) r = 0;
+    var b = ((num >> 8) & 0x00FF) + amt;
+    if (b > 255) b = 255;
+    else if  (b < 0) b = 0;
+    var g = (num & 0x0000FF) + amt;
+    if (g > 255) g = 255;
+    else if (g < 0) g = 0;
+    return (usePound?"#":"") + String("000000" + (g | (b << 8) | (r << 16)).toString(16)).slice(-6);
+}
+
+const rgbToHex = (rgb) => {
+ rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+ return (rgb && rgb.length === 4) ? "#" +
+  ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+  ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+  ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
 }
 
 const checksRGB = (color) => {
@@ -21,8 +48,6 @@ const checksRGB = (color) => {
 }
 
 const calculateRatio = (color1, color2) => {
-  console.log(color1);
-  console.log(color2);
   const colorOneR = color1.r/255;
   const colorOneG = color1.g/255;
   const colorOneB = color1.b/255;
@@ -61,6 +86,8 @@ const colorTwoContainer = document.querySelector('.color2');
 const colorOneTextBox = document.querySelector('.color1 .text-box');
 const colorTwoTextBox = document.querySelector('.color2 .text-box');
 const scoreBox = document.querySelector('.score');
+const colorOneRange = colorOneContainer.querySelector('.input-range');
+const colorTwoRange = colorTwoContainer.querySelector('.input-range');
 
 const updateAll = () => {
   colorOneContainer.style.backgroundColor = colorOne.value;
@@ -71,6 +98,8 @@ const updateAll = () => {
   colorTwoTextBox.style.color = colorTwo.value;
   let colorOneHex = hexToRgb(colorOne.value);
   let colorTwoHex = hexToRgb(colorTwo.value);
+  colorOneRange.style.color = contrast(colorOneHex);
+  colorTwoRange.style.color = contrast(colorTwoHex);
   const message = scoreBox.querySelector('.message');
   const verdict = scoreBox.querySelector('.verdict');
   if (calculateRatio(colorOneHex, colorTwoHex).toFixed(2) > 4.5) {
@@ -95,14 +124,52 @@ const updateAll = () => {
 window.onload = () => {
   updateAll();
 
-  [... document.querySelectorAll('input')].forEach(input => {
+  [... document.querySelectorAll('input[type="text"]')].forEach(input => {
     input.addEventListener('focus', () => {
       input.setSelectionRange(0, input.value.length);
+    });
+    input.addEventListener('blur', () => {
+      if ((!(input.value === 0) && !(input.value.substring(0, 1) === '#'))) {
+        input.value = `#${input.value}`;
+      }
     });
     input.addEventListener('change', () => {
       if (!(input.value.substring(0, 1) === '#')) {
         input.value = `#${input.value}`;
       }
+      input.parentElement.parentElement.querySelector('.input-adjust').value = "0";
+      updateAll();
+    });
+  });
+  [... document.querySelectorAll('input[type="range"]')].forEach(input => {
+    const inputValue = parseInt(input.value);
+    let currentHex;
+    input.addEventListener('focus', (evt) => {
+      console.log('hello');
+      if (inputValue === 0) {
+        currentHex = input.parentElement.parentElement.querySelector('.colorInput').value;
+      }
+    });
+    input.addEventListener('input', (evt) => {
+      const inputValue = parseInt(input.value);
+      let newHex;
+      let value = 0;
+      if (!(inputValue === 0)) {
+        if (inputValue > 0) {
+          value = 0 + (inputValue);
+        } else if (inputValue < 0) {
+          value = 0 + (inputValue);
+        }
+      }
+      console.log(currentHex);
+      if (inputValue > 0) {
+        newHex = LightenDarkenColor(currentHex, value);
+      } else if (inputValue < 0) {
+        newHex = LightenDarkenColor(currentHex, value);
+      } else if (inputValue === 0) {
+        newHex = LightenDarkenColor(currentHex, 0);
+      }
+      input.parentElement.parentElement.querySelector('.colorInput').value = newHex;
       updateAll();
     });
   });
