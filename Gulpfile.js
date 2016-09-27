@@ -19,7 +19,7 @@ gulp.task('sass', function () {
     .pipe(sass({
         includePaths: ['_sass'],
     }))
-    .pipe(nano())
+    // .pipe(nano())
     .pipe(browserSync.reload({stream:true}))
     .pipe(gulp.dest('styles'));
 });
