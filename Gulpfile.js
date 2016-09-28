@@ -5,6 +5,7 @@ var babel = require('gulp-babel');
 var uglify = require('gulp-uglify');
 var rename = require("gulp-rename");
 var browserSync = require('browser-sync');
+var htmlmin = require('gulp-htmlmin');
 
 gulp.task('browser-sync', ['sass'], function() {
   browserSync({
@@ -12,6 +13,13 @@ gulp.task('browser-sync', ['sass'], function() {
           baseDir: ''
       }
   });
+});
+
+gulp.task('minify', function() {
+  return gulp.src('index-prod.html')
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(rename('index.html'))
+    .pipe(gulp.dest(''));
 });
 
 gulp.task('sass', function () {
