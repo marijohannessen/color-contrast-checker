@@ -3,11 +3,6 @@
 }
 
 .header {
-  padding: 1rem 1.5rem 2rem;
-
-  @media screen and (min-width: 860px) {
-    padding: 1rem 1.5rem 2.5rem;
-  }
 
   h1 {
   font-size: 1.75rem;
@@ -31,7 +26,6 @@
     letter-spacing: 1px;
     line-height: 1;
     transition: .3s ease-in-out;
-    margin-top: .25rem;
 
     @media screen and (min-width: 860px) {
       margin-top: 0;
@@ -50,15 +44,7 @@
   }
 }
 
-.color1,
-.color2 {
-  max-height: 460px;
-  padding-bottom: 1rem;
-}
-
 .text-box {
-  margin-top: 3rem;
-  padding: 2rem;
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: 1px;
@@ -71,7 +57,6 @@
 .input-hex {
 
   input {
-    padding: 1rem 1rem 1rem .75rem;
     border: none;
     font-size: 1.75rem;
     text-transform: uppercase;
@@ -97,9 +82,6 @@
 
 .score {
   background-color: white;
-  opacity: 1;
-  z-index: 5;
-  padding: 1rem 1rem 2rem;
   color: black;
 
   p {
@@ -114,7 +96,6 @@
     &.verdict {
       font-size: 2rem;
       font-weight: 700;
-      margin: .75rem 0;
 
       @media screen and (min-width: 860px) {
         font-size: 3rem;
@@ -163,17 +144,10 @@
 }
 
 .input-range {
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-
-  input {
-    flex: 3;
-  }
 
   p {
     font-size: 1rem;
     letter-spacing: 1px;
-    margin-top: .1rem;
 
     &:first-child {
       padding-right: .5rem;
@@ -185,10 +159,7 @@
 }
 
 input[type=range] {
-  -webkit-appearance: none;
-  margin: .5rem 0;
   border: 2px solid black;
-  width: 100%;
 
   &:focus {
     outline: none;
@@ -196,20 +167,12 @@ input[type=range] {
 }
 
 input[type=range]::-webkit-slider-runnable-track {
-  width: 100%;
-  height: .2rem;
-  cursor: pointer;
   background: white;
 }
 
 input[type=range]::-webkit-slider-thumb {
-  height: 2rem;
-  width: .75rem;
   background: white;
   border: 2px solid black;
-  cursor: pointer;
-  -webkit-appearance: none;
-  margin-top: -.9rem;
 
   &:active {
     background: darkgray;
@@ -217,44 +180,30 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 input[type=range]::-moz-range-track {
-  width: 100%;
-  height: .5rem;
-  cursor: pointer;
   background: white;
 }
 
 input[type=range]::-moz-range-thumb {
-  height: 2rem;
-  width: 1rem;
   background: white;
-  cursor: pointer;
 }
 
 input[type=range]::-ms-track {
-  width: 100%;
-  height: .5rem;
-  cursor: pointer;
   background: transparent;
   border-color: transparent;
   color: transparent;
 }
 
 input[type=range]::-ms-thumb {
-  height: 2rem;
-  width: 1rem;
   background: white;
-  cursor: pointer;
 }
 
 .footer {
   background-color: white;
   color: black;
-  padding: .4rem .25rem;
   font-size: .65rem;
   font-weight: 400;
   letter-spacing: 1px;
   color: #333;
-  width: 100%;
   -webkit-font-smoothing: antialiased;
 
   a {
