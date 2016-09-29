@@ -78,6 +78,14 @@ const contrast = (color) => {
 }
 
 const updateAll = () => {
+  document.querySelector('[data-color-one]').querySelector('.color__hex').style.backgroundColor = document.querySelector('#color1').value;
+  document.querySelector('[data-color-two]').querySelector('.color__hex').style.backgroundColor = document.querySelector('#color2').value;
+  // document.querySelector('[data-color-one]').querySelector('.color__input').value = document.querySelector('#color1').value;
+
+  document.querySelector('#color1').style.backgroundColor = document.querySelector('#color2').value;
+  document.querySelector('#color2').style.backgroundColor = document.querySelector('#color1').value;
+  document.querySelector('#color2').style.color = document.querySelector('#color2').value;
+  document.querySelector('#color1').style.color = document.querySelector('#color1').value;
   document.querySelector('.color1').style.backgroundColor = document.querySelector('#color1').value;
   document.querySelector('.color2').style.backgroundColor = document.querySelector('#color2').value;
   document.querySelector('.color1 .text-box').style.backgroundColor = document.querySelector('#color2').value;
@@ -86,31 +94,100 @@ const updateAll = () => {
   document.querySelector('.color2 .text-box').style.color = document.querySelector('#color2').value;
   let colorOneHex = hexToRgb(document.querySelector('#color1').value);
   let colorTwoHex = hexToRgb(document.querySelector('#color2').value);
-  document.querySelector('.color1').querySelector('.input-range').style.color = contrast(colorOneHex);
-  document.querySelector('.color2').querySelector('.input-range').style.color = contrast(colorTwoHex);
   const message = document.querySelector('.score').querySelector('.message');
   const verdict = document.querySelector('.score').querySelector('.verdict');
   if (calculateRatio(colorOneHex, colorTwoHex).toFixed(2) > 4.5) {
     document.querySelector('.score').querySelector('.numbers').innerHTML = `Contrast Ratio: <span class="approved">${calculateRatio(colorTwoHex, colorOneHex).toFixed(2)}</span>`;
     verdict.textContent = `Yes, go for it.`;
-    message.innerHTML = `You can indeed use <span>${document.querySelector('#color1').value}</span> with <span>${document.querySelector('#color2').value}</span>.<br><br><a href="#" class="verdict-link">Learn More</a>`;
+    message.innerHTML = `You can use <span>${document.querySelector('#color1').value}</span> with <span>${document.querySelector('#color2').value}</span>.`;
   } else if (calculateRatio(colorOneHex, colorTwoHex).toFixed(2) < 5.0 && calculateRatio(colorOneHex, colorTwoHex).toFixed(2) > 4.5) {
-    scoreBox.querySelector('.numbers').innerHTML = `Contrast Ratio: <span class="approved">${calculateRatio(colorTwoHex, colorOneHex).toFixed(2)}</span>`;
+    document.querySelector('.score').querySelector('.numbers').innerHTML = `Contrast Ratio: <span class="approved">${calculateRatio(colorTwoHex, colorOneHex).toFixed(2)}</span>`;
     verdict.textContent = `Yes, but use with caution.`;
-    message.innerHTML = `You can use <span>${document.querySelector('#color1').value}</span> with <span>${document.querySelector('#color2').value}</span>, but you're close to 4.5 so consider making some adjustments.<br><br><a href="#" class="verdict-link">Explain please?</a>`;
+    message.innerHTML = `You can use <span>${document.querySelector('#color1').value}</span> with <span>${document.querySelector('#color2').value}</span>, but you're close to 4.5 so consider making some adjustments.`;
   } else if (calculateRatio(colorOneHex, colorTwoHex).toFixed(2) < 4.5 && calculateRatio(colorOneHex, colorTwoHex).toFixed(2) > 4.0) {
-    scoreBox.querySelector('.numbers').innerHTML = `Contrast Ratio: <span class="nope">${calculateRatio(colorTwoHex, colorOneHex).toFixed(2)}</span>`;
+    document.querySelector('.score').querySelector('.numbers').innerHTML = `Contrast Ratio: <span class="nope">${calculateRatio(colorTwoHex, colorOneHex).toFixed(2)}</span>`;
     verdict.textContent = `No, but very close.`;
-    message.innerHTML = `You <span>can't</span> use <span>${document.querySelector('#color1').value}</span> with <span>${document.querySelector('#color2').value}</span>.<br />You're close to 4.5, so try a darker or lighter variation of a color.<br><br><a href="#" class="verdict-link">Explain please?</a>`;
+    message.innerHTML = `You can't use <span>${document.querySelector('#color1').value}</span> with <span>${document.querySelector('#color2').value}</span>.<br />You're close to 4.5, so try a darker or lighter variation of a color.`;
   } else {
-    scoreBox.querySelector('.numbers').innerHTML = `Contrast Ratio: <span class="nope">${calculateRatio(colorTwoHex, colorOneHex).toFixed(2)}</span>`;
+    document.querySelector('.score').querySelector('.numbers').innerHTML = `Contrast Ratio: <span class="nope">${calculateRatio(colorTwoHex, colorOneHex).toFixed(2)}</span>`;
     verdict.textContent = `No.`;
-    message.innerHTML = `You <span>can't</span> use <span>${document.querySelector('#color1').value}</span> with <span>${document.querySelector('#color2').value}</span>.<br><br><a href="#" class="verdict-link">Why not?</a>`;
+    message.innerHTML = `You can't use <span>${document.querySelector('#color1').value}</span> with <span>${document.querySelector('#color2').value}</span>.`;
   }
+}
+
+const clickHandler = (evt, cnt, hex) => {
+  evt.stopPropagation();
+  console.log(hex);
+  let newHex = lightenDarkenColor(hex, cnt);
+  evt.currentTarget.parentElement.parentElement.querySelector('input').value = newHex;
+  if (evt.target.parentElement.parentElement.querySelector('input').dataset.colorInput === "one") {
+    document.querySelector('#color1').value = evt.currentTarget.parentElement.parentElement.querySelector('input').value;
+  } else {
+    document.querySelector('#color2').value = evt.currentTarget.parentElement.parentElement.querySelector('input').value;
+  }
+  updateAll();
 }
 
 window.onload = () => {
   updateAll();
+
+  const inputOne = document.querySelector('#color1-small');
+  const inputTwo = document.querySelector('#color2-small');
+  const inputMainOne = document.querySelector('#color1');
+  const inputMainTwo = document.querySelector('#color2');
+  let mainHexOne = document.querySelector('#color1-small').value;
+  let mainHexTwo = document.querySelector('#color2-small').value;
+  if (inputOne.value === '') {
+    inputOne.value = inputMainOne.value;
+  }
+  if (inputTwo.value === '') {
+    inputTwo.value = inputMainTwo.value;
+  }
+
+  inputOne.addEventListener('input', () => {
+    if (!(inputOne.value.substring(0, 1) === '#')) {
+      inputOne.value = `#${inputOne.value}`;
+    }
+    if (!(inputMainOne.value.substring(0, 1) === '#')) {
+      inputMainOne.value = `#${inputMainOne.value}`;
+    }
+    inputMainOne.value = inputOne.value;
+    mainHexOne = inputMainOne.value;
+    updateAll();
+  });
+  inputTwo.addEventListener('input', () => {
+    if (!(inputTwo.value.substring(0, 1) === '#')) {
+      inputTwo.value = `#${inputTwo.value}`;
+    }
+    if (!(inputMainTwo.value.substring(0, 1) === '#')) {
+      inputMainTwo.value = `#${inputMainTwo.value}`;
+    }
+    inputMainTwo.value = inputTwo.value;
+    mainHexTwo = inputMainTwo.value;
+    updateAll();
+  });
+  inputMainOne.addEventListener('input', () => {
+    if (!(inputOne.value.substring(0, 1) === '#')) {
+      inputOne.value = `#${inputOne.value}`;
+    }
+    if (!(inputMainOne.value.substring(0, 1) === '#')) {
+      inputMainOne.value = `#${inputMainOne.value}`;
+    }
+    inputOne.value = inputMainOne.value;
+    mainHexOne = inputOne.value;
+    updateAll();
+  });
+  inputMainTwo.addEventListener('input', () => {
+    if (!(inputTwo.value.substring(0, 1) === '#')) {
+      inputTwo.value = `#${inputTwo.value}`;
+    }
+    if (!(inputMainTwo.value.substring(0, 1) === '#')) {
+      inputMainTwo.value = `#${inputMainTwo.value}`;
+    }
+    inputTwo.value = inputMainTwo.value;
+    mainHexTwo = inputTwo.value;
+    updateAll();
+  });
 
   [... document.querySelectorAll('input[type="text"]')].forEach(input => {
     input.addEventListener('focus', () => {
@@ -121,42 +198,23 @@ window.onload = () => {
         input.value = `#${input.value}`;
       }
     });
-    input.addEventListener('change', () => {
-      if (!(input.value.substring(0, 1) === '#')) {
-        input.value = `#${input.value}`;
-      }
-      input.parentElement.parentElement.querySelector('.input-adjust').value = "0";
-      updateAll();
-    });
   });
-  [... document.querySelectorAll('input[type="range"]')].forEach(input => {
-    const inputValue = parseInt(input.value);
-    let currentHex;
-    input.addEventListener('focus', (evt) => {
-      if (inputValue === 0) {
-        currentHex = input.parentElement.parentElement.querySelector('.colorInput').value;
-      }
-    });
-    input.addEventListener('input', (evt) => {
-      const inputValue = parseInt(input.value);
-      let newHex;
-      let value = 0;
-      if (!(inputValue === 0)) {
-        if (inputValue > 0) {
-          value = 0 + (inputValue);
-        } else if (inputValue < 0) {
-          value = 0 + (inputValue);
-        }
-      }
-      if (inputValue > 0) {
-        newHex = lightenDarkenColor(currentHex, value);
-      } else if (inputValue < 0) {
-        newHex = lightenDarkenColor(currentHex, value);
-      } else if (inputValue === 0) {
-        newHex = lightenDarkenColor(currentHex, 0);
-      }
-      input.parentElement.parentElement.querySelector('.colorInput').value = newHex;
-      updateAll();
-    });
+  let counter = 0;
+  let counter2 = 0;
+  document.querySelector('[data-adjust-darken-one]').addEventListener('click', (evt) => {
+    counter = counter-5;
+    clickHandler(evt, counter, mainHexOne);
+  });
+  document.querySelector('[data-adjust-lighten-one]').addEventListener('click', (evt) => {
+    counter = counter+5;
+    clickHandler(evt, counter, mainHexOne);
+  });
+  document.querySelector('[data-adjust-darken-two]').addEventListener('click', (evt) => {
+    counter2 = counter2-5;
+    clickHandler(evt, counter2, mainHexTwo);
+  });
+  document.querySelector('[data-adjust-lighten-two]').addEventListener('click', (evt) => {
+    counter2 = counter2+5;
+    clickHandler(evt, counter2, mainHexTwo);
   });
 };

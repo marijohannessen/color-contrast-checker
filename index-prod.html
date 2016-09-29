@@ -24,25 +24,18 @@
 
     .container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      width: 100%;
       height: 100%;
-      overflow-x: hidden;
+      /*overflow-x: hidden;*/
     }
 
     .header {
-      width: 100%;
       display: flex;
       align-items: flex-start;
       justify-content: flex-start;
       flex-direction: column;
-      padding: 1rem 1.5rem 2rem;
-    }
-
-    @media screen and (min-width: 860px) {
-      .header {
-        padding: 1rem 1.5rem 2.5rem;
-      }
+      height: 100vh;
+      z-index: 2;
     }
 
     .colors {
@@ -50,7 +43,7 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      position: relative;
+      /*flex: 3;*/
       width: 100%;
       height: 100%;
     }
@@ -59,19 +52,8 @@
       display: flex;
       align-items: center;
       flex-direction: column;
-      position: static;
       width: 100%;
       height: 100%;
-    }
-
-    @media screen and (min-width: 860px) {
-      .color-container {
-        flex-direction: row;
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: 2;
-      }
     }
 
     .color1,
@@ -79,24 +61,16 @@
       display: flex;
       width: 100%;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       flex-direction: column;
-      max-height: 460px;
-      padding-bottom: 1rem;
-    }
-
-    @media screen and (min-width: 860px) {
-      .color1,
-      .color2 {
-        width: 50%;
-        height: 100%;
-        max-height: 100%;
-      }
+      height: 100%;
+      max-height: 50vh;
     }
 
     .text-box {
-      margin-top: 3rem;
-      width: 80%;
+      width: 60%;
+      /*height: 100px;*/
+      margin-top: 1rem;
       padding: 2rem;
     }
 
@@ -113,42 +87,19 @@
       justify-content: center;
       text-align: center;
       align-items: center;
-      padding: 1rem 1rem 1rem .75rem;
-      width: 100%;
+      padding: 3rem 2rem;
+      width: 300px;
       border: none;
     }
 
-    .color2 .input-hex input {
-      border-left: 0;
-    }
-
-    .fixed-content {
-      position: static;
-      bottom: 0;
-      width: 100%;
-    }
-
-    @media screen and (min-width: 860px) {
-      .fixed-content {
-        position: absolute;
-        bottom: 5%;
-        max-width: 600px;
-        z-index: 10;
-      }
-    }
-
     .score {
-      opacity: 1;
-      z-index: 5;
-      padding: 1rem 1rem 2rem;
+      width: 100%;
       display: flex;
-      align-items: center;
-      justify-content: center;
       flex-direction: column;
     }
 
     .score p.verdict {
-      margin: .75rem 0;
+      margin: 0 0 .75rem;
     }
 
     .score p.message {
@@ -156,72 +107,6 @@
       line-height: 1;
       font-size: 1rem;
       letter-spacing: 1px;
-    }
-
-    .input-range {
-      width: 80%;
-      display: flex;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .input-range input {
-      flex: 3;
-    }
-
-    .input-range p {
-      margin-top: .1rem;
-    }
-
-    .input-range p:first-child {
-      padding-right: .5rem;
-    }
-
-    .input-range p:last-child {
-      padding-left: .5rem;
-    }
-
-    input[type=range] {
-      -webkit-appearance: none;
-      margin: .5rem 0;
-      width: 100%;
-    }
-
-    input[type=range]::-webkit-slider-runnable-track {
-      width: 100%;
-      height: .2rem;
-    }
-
-    input[type=range]::-webkit-slider-thumb {
-      height: 2rem;
-      width: .75rem;
-      cursor: pointer;
-      -webkit-appearance: none;
-      margin-top: -.9rem;
-    }
-
-    input[type=range]::-moz-range-track {
-      width: 100%;
-      height: .5rem;
-      cursor: pointer;
-    }
-
-    input[type=range]::-moz-range-thumb {
-      height: 2rem;
-      width: 1rem;
-      cursor: pointer;
-    }
-
-    input[type=range]::-ms-track {
-      width: 100%;
-      height: .5rem;
-      cursor: pointer;
-    }
-
-    input[type=range]::-ms-thumb {
-      height: 2rem;
-      width: 1rem;
-      cursor: pointer;
     }
 
     .footer {
@@ -245,58 +130,87 @@
     </style>
   </head>
   <body>
-    <div class="container">
-      <header class="header">
+    <!-- <div class="main-header">
+      <div class="header__intro">
         <h1>Is it <span>accessible</span>, though? </h1>
         <h2>
           <a>WCAG 2.0 Level AA</a> Color Contrast Checker
         </h2>
+      </div>
+    </div> -->
+    <div class="container">
+      <header class="header">
+        <!-- <div class="header__intro">
+          <h1>Is it <span>accessible</span>, though? </h1>
+          <h2>
+            <a>WCAG 2.0 Level AA</a> Color Contrast Checker
+          </h2>
+        </div> -->
+        <div class="color-picker">
+          <div class="color" data-color-one>
+            <div class="color__hex"></div>
+            <div class="color__data">
+              <button class="adjust-color--light" data-adjust-lighten-one>Lighten</button>
+              <input id="color1-small" class="color__input" type="text" value="#BEDEDE" data-color-input="one" />
+              <button class="adjust-color--dark" data-adjust-darken-one>Darken</button>
+            </div>
+          </div>
+          <div class="score">
+            <p class="verdict" style="display:none"></p>
+            <p class="numbers"></p>
+            <p class="message"></p>
+            <h1>Color Contrast Checker by <a href="#">Mari Johannessen</a></h1>
+            <p class="small">Based on the <a href="#">WCAG 2.0 Level AA</a> standards</p>
+            <!-- <a class="learn-more" href="#">Learn more</a> -->
+            <!-- <a href="#" class="verdict-link">Learn more about the test</a> -->
+            <a href="#" class="signature">Mari Johannessen</a>
+          </div>
+          <div class="color" data-color-two>
+            <div class="color__data">
+              <button class="adjust-color--light" data-adjust-lighten-two>Lighten</button>
+              <input id="color2-small" class="color__input" type="text" value="#333333" data-color-input="two" />
+              <button class="adjust-color--dark" data-adjust-darken-two>Darken</button>
+            </div>
+            <div class="color__hex"></div>
+          </div>
+        </div>
       </header>
       <div class="colors">
         <div class="color-container">
           <div class="color1">
-            <div class="input-hex">
-              <input maxlength="7" type="text" id="color1" class="colorInput" value="#1B1F3B" />
+            <div class="input-hex" style="display: none">
+              <input maxlength="7" type="text" data-color-one-input id="color1" class="colorInput" value="#BEDEDE" />
             </div>
             <div class="text-box">
               Forage post-ironic celiac, sustainable kinfolk 90's cred microdosing <span>narwhal 3 wolf moon tousled raw denim.</span>
               Forage post-ironic celiac, sustainable kinfolk 90's cred microdosing <span>narwhal 3 wolf moon tousled raw denim.</span>
             </div>
-            <div class="input-range">
-              <p>Darken</p>
-              <input type="range" min="-50" max="50" step="5" value="0" class="input-adjust" />
-              <p>Lighten</p>
-            </div>
+            <!-- <div class="adjust-color">
+              <button class="adjust-color--dark" data-adjust-darken-one>Darken</button>
+              <button class="adjust-color--light" data-adjust-lighten-one>Lighten</button>
+            </div> -->
           </div>
           <div class="color2">
-            <div class="input-hex">
-              <input maxlength="7" type="text" id="color2" class="colorInput" value="#FFCCC9" />
+            <div class="input-hex" style="display: none">
+              <input maxlength="7" type="text" data-color-two-input id="color2" class="colorInput" value="#333333" />
             </div>
             <div class="text-box">
               Forage post-ironic celiac, sustainable kinfolk 90's cred microdosing <span>narwhal 3 wolf moon tousled raw denim.</span>
               Forage post-ironic celiac, sustainable kinfolk 90's cred microdosing <span>narwhal 3 wolf moon tousled raw denim.</span>
             </div>
-            <div class="input-range">
-              <p>Darken</p>
-              <input type="range" min="-50" max="50" step="5" value="0" class="input-adjust" />
-              <p>Lighten</p>
-            </div>
+            <!-- <div class="adjust-color">
+              <button class="adjust-color--dark" data-adjust-darken-two>Darken</button>
+              <button class="adjust-color--light" data-adjust-lighten-two>Lighten</button>
+            </div> -->
           </div>
         </div>
-        <div class="fixed-content">
-          <div class="score">
-            <p class="verdict"></p>
-            <p class="numbers"></p>
-            <p class="message"></p>
-          </div>
-        </div>
-        <div class="footer">
+        <!-- <div class="footer">
           <p>Made by <a href="http://www.github.com/marijohannessen">Mari Johannessen</a></p>
-        </div>
+        </div> -->
       </div>
     </div>
     <noscript id="deferred-styles">
-      <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/marijohannessen/color-contrast-checker/cd422f15b143a8711418d3baf30bd68c6f6ca397/styles/main.css"/>
+      <link rel="stylesheet" type="text/css" href="styles/main.css"/>
     </noscript>
     <script>
     var loadDeferredStyles = function() {
@@ -311,6 +225,6 @@
     if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
     else window.addEventListener('load', loadDeferredStyles);
     </script>
-    <script async type="application/javascript" src="https://cdn.rawgit.com/marijohannessen/color-contrast-checker/1b243e63702127c7c7319e7963750f4a82fe8bed/js/script.min.js"></script>
+    <script async type="application/javascript" src="js/script.min.js"></script>
   </body>
 </html>

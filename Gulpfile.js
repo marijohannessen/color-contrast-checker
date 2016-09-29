@@ -7,7 +7,7 @@ var rename = require("gulp-rename");
 var browserSync = require('browser-sync');
 var htmlmin = require('gulp-htmlmin');
 
-gulp.task('browser-sync', ['sass'], function() {
+gulp.task('browser-sync', ['sass', 'js', 'minify'], function() {
   browserSync({
       server: {
           baseDir: ''
@@ -19,6 +19,7 @@ gulp.task('minify', function() {
   return gulp.src('index-prod.html')
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(rename('index.html'))
+    .pipe(browserSync.reload({stream:true}))
     .pipe(gulp.dest(''));
 });
 
@@ -46,7 +47,7 @@ gulp.task('js', function () {
 gulp.task('watch', function () {
     gulp.watch('styles/main.scss', ['sass']);
     gulp.watch('js/script.js', ['js']);
-    gulp.watch("*.html").on('change', browserSync.reload);
+    gulp.watch('index-prod.html', ['minify']);
 });
 
 gulp.task('default', ['browser-sync', 'watch']);
