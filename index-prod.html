@@ -69,6 +69,7 @@
 
     .text-box {
       width: 60%;
+      max-width: 500px;
       /*height: 100px;*/
       margin-top: 1rem;
       padding: 2rem;
@@ -147,31 +148,46 @@
           </h2>
         </div> -->
         <div class="color-picker">
-          <div class="color" data-color-one>
-            <div class="color__hex"></div>
-            <div class="color__data">
-              <button class="adjust-color--light" data-adjust-lighten-one>Lighten</button>
-              <input id="color1-small" class="color__input" type="text" value="#BEDEDE" data-color-input="one" />
-              <button class="adjust-color--dark" data-adjust-darken-one>Darken</button>
-            </div>
-          </div>
           <div class="score">
             <p class="verdict" style="display:none"></p>
             <p class="numbers"></p>
             <p class="message"></p>
+            <p class="desc"><a href="#">WCAG 2.0 level AA</a> requires a contrast ratio of 4.5 for normal text and 3 for large text.</p>
             <h1>Color Contrast Checker by <a href="#">Mari Johannessen</a></h1>
             <p class="small">Based on the <a href="#">WCAG 2.0 Level AA</a> standards</p>
             <!-- <a class="learn-more" href="#">Learn more</a> -->
             <!-- <a href="#" class="verdict-link">Learn more about the test</a> -->
             <a href="#" class="signature">Mari Johannessen</a>
           </div>
-          <div class="color" data-color-two>
-            <div class="color__data">
-              <button class="adjust-color--light" data-adjust-lighten-two>Lighten</button>
-              <input id="color2-small" class="color__input" type="text" value="#333333" data-color-input="two" />
-              <button class="adjust-color--dark" data-adjust-darken-two>Darken</button>
+          <div class="color" data-color-one>
+            <div class="color__hex">
             </div>
+            <input id="color1-small" class="color__input" type="text" value="#BEDEDE" data-color-input="one" />
+            <div class="color__settings">
+              <button class="adjust-color" data-adjust-original-one>Original</button>
+              <button class="adjust-color" data-adjust-white-one>Black</button>
+              <button class="adjust-color" data-adjust-black-one>White</button>
+            </div>
+            <div class="color__data">
+              <button class="adjust-color" data-adjust-lighten-one>Lighten</button>
+              <button class="adjust-color" data-adjust-darken-one>Darken</button>
+              <!-- <input id="color1-small" class="color__input" type="text" value="#BEDEDE" data-color-input="one" /> -->
+              <button class="adjust-color" data-adjust-something-one>Darken</button>
+            </div>
+          </div>
+          <div class="color" data-color-two>
             <div class="color__hex"></div>
+            <input id="color2-small" class="color__input" type="text" value="#333333" data-color-input="two" />
+            <div class="color__settings">
+              <button class="adjust-color" data-adjust-original-two>Original</button>
+              <button class="adjust-color" data-adjust-white-two>Black</button>
+              <button class="adjust-color" data-adjust-black-two>White</button>
+            </div>
+            <div class="color__data">
+              <button class="adjust-color" data-adjust-lighten-two>Lighten</button>
+              <button class="adjust-color" data-adjust-darken-two>Darken</button>
+              <button class="adjust-color" data-adjust-something-two>Darken</button>
+            </div>
           </div>
         </div>
       </header>

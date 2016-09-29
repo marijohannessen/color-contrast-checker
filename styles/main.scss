@@ -9,6 +9,12 @@
   height: 100%;
 }
 
+.color1,
+.color2 {
+  background-color: white;
+  transition: background-color .3s ease-in-out;
+}
+
 .header {
   width: 520px;
   box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, .3);
@@ -31,14 +37,28 @@
     flex: 1;
 
     &__hex {
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
       height: 80px;
       flex: 1;
+      transition: background-color .3s ease-in-out;
+
+      textarea {
+        width: 80%;
+        font-size: 1rem;
+        padding: 1rem;
+        resize: none;
+        overflow: auto;
+      }
     }
 
-    &__data {
+    &__data,
+    &__settings {
       width: 100%;
-      height: 7vh;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: flex-start;
@@ -46,12 +66,12 @@
     }
 
     &__input {
-      font-size: 1rem;
+      font-size: 1.5rem;
       letter-spacing: 2px;
       font-weight: 700;
-      height: 100%;
+      height: 80px;
       padding: 0 1.5rem;
-      width: 50%;
+      width: 100%;
       text-transform: uppercase;
       border: 0;
       text-align: center;
@@ -60,9 +80,8 @@
       // border-top: 2px solid #333;
     }
 
-    .adjust-color--dark,
-    .adjust-color--light {
-      width: 100px;
+    .adjust-color {
+      width: 35%;
       height: 100%;
       padding: 1rem .5rem;
       font-size: .875rem;
@@ -73,13 +92,22 @@
       cursor: pointer;
       transition: .3s;
       z-index: 5;
+      border: 1px solid #222;
 
-      &:nth-child(2) {
-        border-left: 1px solid #eee;
-      }
+      // &:nth-child(2) {
+      //   border-left: 1px solid #eee;
+      // }
 
       &:hover {
         background-color: lighten(#333, 5%);
+      }
+    }
+
+    &__settings {
+      justify-content: center;
+
+      .adjust-color {
+        width: 35%;
       }
     }
   }
@@ -122,12 +150,14 @@
 .score {
   // background-color: #eee;
   color: black;
-  padding: 1.5rem 2rem 2rem;
+  padding: 2.5rem 2rem 3rem;
   display: flex;
   flex-direction: column;
   // align-items: center;
   // text-align: center;
   justify-content: flex-start;
+  // box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, .3);
+
 
   h1, a, p {
     font-size: .875rem;
@@ -165,6 +195,18 @@
       font-weight: 700;
     }
 
+    &.desc {
+      font-size: .975rem;
+      line-height: 1.55;
+      padding-bottom: 1.75rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #bbb;
+
+      a {
+        font-size: .975rem;
+      }
+    }
+
     &.numbers {
       font-size: 1.9rem;
       font-weight: 700;
@@ -186,10 +228,8 @@
     &.message {
       margin-top: .4rem;
       line-height: 1.55;
-      font-size: .975rem;
-      padding-bottom: 1.75rem;
-      margin-bottom: 1.75rem;
-      border-bottom: 1px solid #bbb;
+      font-size: 1rem;
+      margin-bottom: 1rem;
 
       span {
         font-weight: 700;
