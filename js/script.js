@@ -67,127 +67,59 @@ const calculateRatio = (color1, color2) => {
   }
 }
 
-const contrast = (color) => {
-  const colorOneBright = Math.round(((color.r * 299) + (color.g * 587) + (color.b * 114))/1000);
-  const colorLight = Math.round(((255 * 299) + (255 * 587) + (255 * 114))/1000);
-  if (Math.abs(colorOneBright) < (colorLight / 2)) {
-    return '#FFFFFF';
-  } else {
-    return '#000000';
-  }
-}
-
 const updateAll = () => {
-  document.querySelector('[data-color-one]').querySelector('.color__hex').style.backgroundColor = document.querySelector('#color1').value;
-  document.querySelector('[data-color-two]').querySelector('.color__hex').style.backgroundColor = document.querySelector('#color2').value;
-  // document.querySelector('[data-color-one]').querySelector('.color__input').value = document.querySelector('#color1').value;
+  const colorOne = document.querySelector('#color1-value').value;
+  const colorTwo = document.querySelector('#color2-value').value;
+  const colorOneContainer = document.querySelector('[data-color-one]');
+  const colorTwoContainer = document.querySelector('[data-color-two]');
+  const colorOneTextbox = colorOneContainer.querySelector('.text-box');
+  const colorTwoTextbox = colorTwoContainer.querySelector('.text-box');
+  const contrastRatio = document.querySelector('.sidebar__score--ratio');
+  const colorOneRgb = hexToRgb(colorOne);
+  const colorTwoRgb = hexToRgb(colorTwo);
+  colorOneContainer.style.backgroundColor = colorOne;
+  colorTwoContainer.style.backgroundColor = colorTwo;
+  colorOneTextbox.style.backgroundColor = colorTwo;
+  colorTwoTextbox.style.backgroundColor = colorOne;
+  colorOneContainer.style.color = colorOne;
+  colorTwoContainer.style.color = colorTwo;
 
-  document.querySelector('#color1').style.backgroundColor = document.querySelector('#color2').value;
-  document.querySelector('#color2').style.backgroundColor = document.querySelector('#color1').value;
-  document.querySelector('#color2').style.color = document.querySelector('#color2').value;
-  document.querySelector('#color1').style.color = document.querySelector('#color1').value;
-  document.querySelector('.color1').style.backgroundColor = document.querySelector('#color1').value;
-  document.querySelector('.color2').style.backgroundColor = document.querySelector('#color2').value;
-  document.querySelector('.color1 .text-box').style.backgroundColor = document.querySelector('#color2').value;
-  document.querySelector('.color1 .text-box').style.color = document.querySelector('#color1').value;
-  document.querySelector('.color2 .text-box').style.backgroundColor = document.querySelector('#color1').value;
-  document.querySelector('.color2 .text-box').style.color = document.querySelector('#color2').value;
-  let colorOneHex = hexToRgb(document.querySelector('#color1').value);
-  let colorTwoHex = hexToRgb(document.querySelector('#color2').value);
-  const message = document.querySelector('.score').querySelector('.message');
-  const verdict = document.querySelector('.score').querySelector('.verdict');
-  if (calculateRatio(colorOneHex, colorTwoHex).toFixed(2) > 4.5) {
-    document.querySelector('.score').querySelector('.numbers').innerHTML = `Contrast Ratio: <span class="approved">${calculateRatio(colorTwoHex, colorOneHex).toFixed(2)}</span>`;
-    verdict.textContent = `Yes, go for it.`;
-    message.innerHTML = `You can use <span>${document.querySelector('#color1').value}</span> with <span>${document.querySelector('#color2').value}</span>.`;
-  } else if (calculateRatio(colorOneHex, colorTwoHex).toFixed(2) < 5.0 && calculateRatio(colorOneHex, colorTwoHex).toFixed(2) > 4.5) {
-    document.querySelector('.score').querySelector('.numbers').innerHTML = `Contrast Ratio: <span class="approved">${calculateRatio(colorTwoHex, colorOneHex).toFixed(2)}</span>`;
-    verdict.textContent = `Yes, but use with caution.`;
-    message.innerHTML = `You can use <span>${document.querySelector('#color1').value}</span> with <span>${document.querySelector('#color2').value}</span>, but you're close to 4.5 so consider making some adjustments.`;
-  } else if (calculateRatio(colorOneHex, colorTwoHex).toFixed(2) < 4.5 && calculateRatio(colorOneHex, colorTwoHex).toFixed(2) > 4.0) {
-    document.querySelector('.score').querySelector('.numbers').innerHTML = `Contrast Ratio: <span class="nope">${calculateRatio(colorTwoHex, colorOneHex).toFixed(2)}</span>`;
-    verdict.textContent = `No, but very close.`;
-    message.innerHTML = `You can't use <span>${document.querySelector('#color1').value}</span> with <span>${document.querySelector('#color2').value}</span>.<br />You're close to 4.5, so try a darker or lighter variation of a color.`;
-  } else {
-    document.querySelector('.score').querySelector('.numbers').innerHTML = `Contrast Ratio: <span class="nope">${calculateRatio(colorTwoHex, colorOneHex).toFixed(2)}</span>`;
-    verdict.textContent = `No.`;
-    message.innerHTML = `You can't use <span>${document.querySelector('#color1').value}</span> with <span>${document.querySelector('#color2').value}</span>.`;
+  if (colorOneRgb && colorTwoRgb) {
+    if (calculateRatio(colorOneRgb, colorTwoRgb).toFixed(2) > 4.5) {
+      contrastRatio.innerHTML = `Contrast Ratio: <span class="approved">${calculateRatio(colorTwoRgb, colorOneRgb).toFixed(2)}</span>`;
+    } else {
+      contrastRatio.innerHTML = `Contrast Ratio: <span class="nope">${calculateRatio(colorTwoRgb, colorOneRgb).toFixed(2)}</span>`;
+    }
   }
 }
 
 const clickHandler = (evt, cnt, hex) => {
   evt.stopPropagation();
-  console.log(hex);
-  let newHex = lightenDarkenColor(hex, cnt);
-  evt.currentTarget.parentElement.parentElement.querySelector('input').value = newHex;
-  if (evt.target.parentElement.parentElement.querySelector('input').dataset.colorInput === "one") {
-    document.querySelector('#color1').value = evt.currentTarget.parentElement.parentElement.querySelector('input').value;
-  } else {
-    document.querySelector('#color2').value = evt.currentTarget.parentElement.parentElement.querySelector('input').value;
+  if (hex.length === 4) {
+    let expandedHex = hex.split('');
+    hex = expandedHex[0] + expandedHex[1] + expandedHex[1] + expandedHex[2] + expandedHex[2] + expandedHex[3] + expandedHex[3];
   }
+  const newHex = lightenDarkenColor(hex, cnt);
+  evt.currentTarget.parentElement.parentElement.querySelector('input').value = newHex;
   updateAll();
 }
 
 window.onload = () => {
-  updateAll();
+  const launchBtn = document.querySelector('[data-launch-widget]');
+  launchBtn.addEventListener('click', (evt) => {
+    window.open('/', '', 'width=380, height=450, menubar=no, resizable=no');
+  });
 
-  const inputOne = document.querySelector('#color1-small');
-  const inputTwo = document.querySelector('#color2-small');
-  const inputMainOne = document.querySelector('#color1');
-  const inputMainTwo = document.querySelector('#color2');
-  let mainHexOne = document.querySelector('#color1-small').value;
-  let mainHexTwo = document.querySelector('#color2-small').value;
-  if (inputOne.value === '') {
-    inputOne.value = inputMainOne.value;
-  }
-  if (inputTwo.value === '') {
-    inputTwo.value = inputMainTwo.value;
-  }
+  const colorOne = document.querySelector('#color1-value');
+  const colorTwo = document.querySelector('#color2-value');
+  let mainHexOne = colorOne.value;
+  let mainHexTwo = colorTwo.value;
+  let prevMainHexOne;
+  let prevMainHexTwo;
 
-  inputOne.addEventListener('input', () => {
-    if (!(inputOne.value.substring(0, 1) === '#')) {
-      inputOne.value = `#${inputOne.value}`;
-    }
-    if (!(inputMainOne.value.substring(0, 1) === '#')) {
-      inputMainOne.value = `#${inputMainOne.value}`;
-    }
-    inputMainOne.value = inputOne.value;
-    mainHexOne = inputMainOne.value;
+  if (colorOne.value.length > 2 && colorTwo.value.length > 2) {
     updateAll();
-  });
-  inputTwo.addEventListener('input', () => {
-    if (!(inputTwo.value.substring(0, 1) === '#')) {
-      inputTwo.value = `#${inputTwo.value}`;
-    }
-    if (!(inputMainTwo.value.substring(0, 1) === '#')) {
-      inputMainTwo.value = `#${inputMainTwo.value}`;
-    }
-    inputMainTwo.value = inputTwo.value;
-    mainHexTwo = inputMainTwo.value;
-    updateAll();
-  });
-  inputMainOne.addEventListener('input', () => {
-    if (!(inputOne.value.substring(0, 1) === '#')) {
-      inputOne.value = `#${inputOne.value}`;
-    }
-    if (!(inputMainOne.value.substring(0, 1) === '#')) {
-      inputMainOne.value = `#${inputMainOne.value}`;
-    }
-    inputOne.value = inputMainOne.value;
-    mainHexOne = inputOne.value;
-    updateAll();
-  });
-  inputMainTwo.addEventListener('input', () => {
-    if (!(inputTwo.value.substring(0, 1) === '#')) {
-      inputTwo.value = `#${inputTwo.value}`;
-    }
-    if (!(inputMainTwo.value.substring(0, 1) === '#')) {
-      inputMainTwo.value = `#${inputMainTwo.value}`;
-    }
-    inputTwo.value = inputMainTwo.value;
-    mainHexTwo = inputTwo.value;
-    updateAll();
-  });
+  }
 
   [... document.querySelectorAll('input[type="text"]')].forEach(input => {
     input.addEventListener('focus', () => {
@@ -198,23 +130,145 @@ window.onload = () => {
         input.value = `#${input.value}`;
       }
     });
+    input.addEventListener('change', () => {
+      if (!(input.value.substring(0, 1) === '#')) {
+        input.value = `#${input.value}`;
+      }
+      updateAll();
+    });
   });
+
+  colorOne.addEventListener('input', () => {
+    if (!(colorOne.value.substring(0, 1) === '#')) {
+      colorOne.value = `#${colorOne.value}`;
+    }
+    if (colorOne.value.length > 2) {
+      mainHexOne = colorOne.value;
+      updateAll();
+    }
+  });
+
+  colorTwo.addEventListener('input', () => {
+    if (!(colorTwo.value.substring(0, 1) === '#')) {
+      colorTwo.value = `#${colorTwo.value}`;
+    }
+    if (colorTwo.value.length > 2) {
+      mainHexTwo = colorTwo.value;
+      updateAll();
+    }
+  });
+
   let counter = 0;
   let counter2 = 0;
+
+  document.querySelector('[data-undo-one]').addEventListener('click', (evt) => {
+    colorOne.value = mainHexOne;
+    evt.currentTarget.classList.remove('is-shown');
+    counter = 0;
+  });
+
+  document.querySelector('[data-undo-two]').addEventListener('click', (evt) => {
+    colorTwo.value = mainHexTwo;
+    evt.currentTarget.classList.remove('is-shown');
+    counter2 = 0;
+  });
+
   document.querySelector('[data-adjust-darken-one]').addEventListener('click', (evt) => {
+    const undoBtn = evt.currentTarget.parentElement.parentElement.querySelector('[data-undo-one]');
+    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-white-one]').classList.remove('is-pressed');
+    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-black-one]').classList.remove('is-pressed');
+    undoBtn.classList.add('is-shown');
     counter = counter-5;
+    if (counter === 0) {
+      undoBtn.classList.remove('is-shown');
+    }
     clickHandler(evt, counter, mainHexOne);
   });
   document.querySelector('[data-adjust-lighten-one]').addEventListener('click', (evt) => {
+    const undoBtn = evt.currentTarget.parentElement.parentElement.querySelector('[data-undo-one]');
+    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-white-one]').classList.remove('is-pressed');
+    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-black-one]').classList.remove('is-pressed');
+    undoBtn.classList.add('is-shown');
     counter = counter+5;
+    if (counter === 0) {
+      undoBtn.classList.remove('is-shown');
+    }
     clickHandler(evt, counter, mainHexOne);
   });
   document.querySelector('[data-adjust-darken-two]').addEventListener('click', (evt) => {
+    const undoBtn = evt.currentTarget.parentElement.parentElement.querySelector('[data-undo-two]');
+    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-white-two]').classList.remove('is-pressed');
+    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-black-two]').classList.remove('is-pressed');
+    undoBtn.classList.add('is-shown');
     counter2 = counter2-5;
+    if (counter2 === 0) {
+      undoBtn.classList.remove('is-shown');
+    }
     clickHandler(evt, counter2, mainHexTwo);
   });
   document.querySelector('[data-adjust-lighten-two]').addEventListener('click', (evt) => {
+    const undoBtn = evt.currentTarget.parentElement.parentElement.querySelector('[data-undo-two]');
+    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-white-two]').classList.remove('is-pressed');
+    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-black-two]').classList.remove('is-pressed');
+    undoBtn.classList.add('is-shown');
     counter2 = counter2+5;
+    if (counter2 === 0) {
+      undoBtn.classList.remove('is-shown');
+    }
     clickHandler(evt, counter2, mainHexTwo);
+  });
+  document.querySelector('[data-adjust-black-one]').addEventListener('click', (evt) => {
+    evt.stopPropagation();
+    let parentInput = evt.currentTarget.parentElement.parentElement.querySelector('input');
+    if (parentInput.value === '#000000') {
+      parentInput.parentElement.querySelector('[data-undo-one]').classList.remove('is-shown');
+      evt.currentTarget.classList.remove('is-pressed');
+      parentInput.value = mainHexOne;
+    } else {
+      evt.currentTarget.classList.add('is-pressed');
+      evt.currentTarget.parentElement.querySelector('[data-adjust-white-one]').classList.remove('is-pressed');
+      parentInput.value = '#000000';
+    }
+    updateAll();
+  });
+  document.querySelector('[data-adjust-white-one]').addEventListener('click', (evt) => {
+    evt.stopPropagation();
+    let parentInput = evt.currentTarget.parentElement.parentElement.querySelector('input');
+    if (parentInput.value === '#FFFFFF') {
+      parentInput.parentElement.querySelector('[data-undo-one]').classList.remove('is-shown');
+      evt.currentTarget.classList.remove('is-pressed');
+      parentInput.value = mainHexOne;
+    } else {
+      evt.currentTarget.classList.add('is-pressed');
+      evt.currentTarget.parentElement.querySelector('[data-adjust-black-one]').classList.remove('is-pressed');
+      parentInput.value = '#FFFFFF';
+    }
+    updateAll();
+  });
+  document.querySelector('[data-adjust-black-two]').addEventListener('click', (evt) => {
+    evt.stopPropagation();
+    let parentInput = evt.currentTarget.parentElement.parentElement.querySelector('input');
+    if (parentInput.value === '#000000') {
+      parentInput.parentElement.querySelector('[data-undo-two]').classList.remove('is-shown');
+      evt.currentTarget.classList.remove('is-pressed');
+      parentInput.value = mainHexTwo;
+    } else {
+      evt.currentTarget.classList.add('is-pressed');
+      parentInput.value = '#000000';
+    }
+    updateAll();
+  });
+  document.querySelector('[data-adjust-white-two]').addEventListener('click', (evt) => {
+    evt.stopPropagation();
+    let parentInput = evt.currentTarget.parentElement.parentElement.querySelector('input');
+    if (parentInput.value === '#FFFFFF') {
+      parentInput.parentElement.querySelector('[data-undo-two]').classList.remove('is-shown');
+      evt.currentTarget.classList.remove('is-pressed');
+      parentInput.value = mainHexTwo;
+    } else {
+      evt.currentTarget.classList.add('is-pressed');
+      parentInput.value = '#FFFFFF';
+    }
+    updateAll();
   });
 };

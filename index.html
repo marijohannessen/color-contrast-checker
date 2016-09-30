@@ -1,151 +1,181 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Color Contrast Checker</title><link rel="icon" href="data:;base64,iVBORw0KGgo="><style>* {
-      box-sizing: border-box;
-      padding: 0;
-      margin: 0;
-    }
-
-    body {
-      height: 100%;
-    }
-
-    @media screen and (min-width: 860px) {
-      body {
-        height: 100vh;
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
       }
-    }
-
-    .container {
-      display: flex;
-      width: 100%;
-      height: 100%;
-      /*overflow-x: hidden;*/
-    }
-
-    .header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-start;
-      flex-direction: column;
-      height: 100vh;
-      z-index: 2;
-    }
-
-    .colors {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      /*flex: 3;*/
-      width: 100%;
-      height: 100%;
-    }
-
-    .color-container {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      width: 100%;
-      height: 100%;
-    }
-
-    .color1,
-    .color2 {
-      display: flex;
-      width: 100%;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      height: 100%;
-      max-height: 50vh;
-    }
-
-    .text-box {
-      width: 60%;
-      max-width: 500px;
-      /*height: 100px;*/
-      margin-top: 1rem;
-      padding: 2rem;
-    }
-
-    .input-hex {
-      margin: 0;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .input-hex input {
-      display: flex;
-      justify-content: center;
-      text-align: center;
-      align-items: center;
-      padding: 3rem 2rem;
-      width: 300px;
-      border: none;
-    }
-
-    .score {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .score p.verdict {
-      margin: 0 0 .75rem;
-    }
-
-    .score p.message {
-      margin-top: .75rem;
-      line-height: 1;
-      font-size: 1rem;
-      letter-spacing: 1px;
-    }
-
-    .footer {
-      padding: .4rem .25rem;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    @media screen and (min-width: 860px) {
-      .footer {
-        position: absolute;
-        width: 200px;
-        bottom: 1rem;
-        right: 1rem;
-        z-index: 6;
+      @media screen and (min-width: 895px) {
+        body {
+          height: 100vh;
         }
-      }</style></head><body><!-- <div class="main-header">
-      <div class="header__intro">
-        <h1>Is it <span>accessible</span>, though? </h1>
-        <h2>
-          <a>WCAG 2.0 Level AA</a> Color Contrast Checker
-        </h2>
-      </div>
-    </div> --><div class="container"><header class="header"><!-- <div class="header__intro">
-          <h1>Is it <span>accessible</span>, though? </h1>
-          <h2>
-            <a>WCAG 2.0 Level AA</a> Color Contrast Checker
-          </h2>
-        </div> --><div class="color-picker"><div class="score"><p class="verdict" style="display:none"></p><p class="numbers"></p><p class="message"></p><p class="desc"><a href="#">WCAG 2.0 level AA</a> requires a contrast ratio of 4.5 for normal text and 3 for large text.</p><h1>Color Contrast Checker by <a href="#">Mari Johannessen</a></h1><p class="small">Based on the <a href="#">WCAG 2.0 Level AA</a> standards</p><!-- <a class="learn-more" href="#">Learn more</a> --><!-- <a href="#" class="verdict-link">Learn more about the test</a> --> <a href="#" class="signature">Mari Johannessen</a></div><div class="color" data-color-one><div class="color__hex"></div><input id="color1-small" class="color__input" type="text" value="#BEDEDE" data-color-input="one"><div class="color__settings"><button class="adjust-color" data-adjust-original-one>Original</button> <button class="adjust-color" data-adjust-white-one>Black</button> <button class="adjust-color" data-adjust-black-one>White</button></div><div class="color__data"><button class="adjust-color" data-adjust-lighten-one>Lighten</button> <button class="adjust-color" data-adjust-darken-one>Darken</button><!-- <input id="color1-small" class="color__input" type="text" value="#BEDEDE" data-color-input="one" /> --> <button class="adjust-color" data-adjust-something-one>Darken</button></div></div><div class="color" data-color-two><div class="color__hex"></div><input id="color2-small" class="color__input" type="text" value="#333333" data-color-input="two"><div class="color__settings"><button class="adjust-color" data-adjust-original-two>Original</button> <button class="adjust-color" data-adjust-white-two>Black</button> <button class="adjust-color" data-adjust-black-two>White</button></div><div class="color__data"><button class="adjust-color" data-adjust-lighten-two>Lighten</button> <button class="adjust-color" data-adjust-darken-two>Darken</button> <button class="adjust-color" data-adjust-something-two>Darken</button></div></div></div></header><div class="colors"><div class="color-container"><div class="color1"><div class="input-hex" style="display: none"><input maxlength="7" type="text" data-color-one-input id="color1" class="colorInput" value="#BEDEDE"></div><div class="text-box">Forage post-ironic celiac, sustainable kinfolk 90's cred microdosing <span>narwhal 3 wolf moon tousled raw denim.</span> Forage post-ironic celiac, sustainable kinfolk 90's cred microdosing <span>narwhal 3 wolf moon tousled raw denim.</span></div><!-- <div class="adjust-color">
-              <button class="adjust-color--dark" data-adjust-darken-one>Darken</button>
-              <button class="adjust-color--light" data-adjust-lighten-one>Lighten</button>
-            </div> --></div><div class="color2"><div class="input-hex" style="display: none"><input maxlength="7" type="text" data-color-two-input id="color2" class="colorInput" value="#333333"></div><div class="text-box">Forage post-ironic celiac, sustainable kinfolk 90's cred microdosing <span>narwhal 3 wolf moon tousled raw denim.</span> Forage post-ironic celiac, sustainable kinfolk 90's cred microdosing <span>narwhal 3 wolf moon tousled raw denim.</span></div><!-- <div class="adjust-color">
-              <button class="adjust-color--dark" data-adjust-darken-two>Darken</button>
-              <button class="adjust-color--light" data-adjust-lighten-two>Lighten</button>
-            </div> --></div></div><!-- <div class="footer">
-          <p>Made by <a href="http://www.github.com/marijohannessen">Mari Johannessen</a></p>
-        </div> --></div></div><noscript id="deferred-styles"><link rel="stylesheet" type="text/css" href="styles/main.css"></noscript><script>var loadDeferredStyles = function() {
-      var addStylesNode = document.getElementById("deferred-styles");
-      var replacement = document.createElement("div");
-      replacement.innerHTML = addStylesNode.textContent;
-      document.body.appendChild(replacement)
-      addStylesNode.parentElement.removeChild(addStylesNode);
-    };
-    var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-        webkitRequestAnimationFrame || msRequestAnimationFrame;
-    if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
-    else window.addEventListener('load', loadDeferredStyles);</script><script async type="application/javascript" src="js/script.min.js"></script></body></html>
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        transition: .3s ease-in-out;
+      }
+      @media screen and (min-width: 895px) {
+        .container {
+          flex-direction: row;
+        }
+      }
+      .sidebar {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      @media screen and (min-width: 895px) {
+        .sidebar {
+          position: absolute;
+          height: 100%;
+          width: 380px;
+          top: 0;
+          left: 0;
+          justify-content: space-between;
+        }
+      }
+      .sidebar__container {
+        display: flex;
+        width: 100%;
+        min-height: 320px;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+      }
+      @media screen and (min-width: 895px) {
+        .sidebar__container {
+          justify-content: flex-start;
+        }
+      }
+      .sidebar__colors {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      @media screen and (min-width: 643px) {
+        .sidebar__colors {
+          flex-direction: row;
+        }
+      }
+      @media screen and (min-width: 895px) {
+        .sidebar__colors {
+          flex-direction: column;
+        }
+      }
+      .sidebar__color {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%;
+        transition: width .3s;
+      }
+      @media screen and (min-width: 643px) {
+        .sidebar__color {
+          width: 50%;
+        }
+      }
+      @media screen and (min-width: 895px) {
+        .sidebar__color {
+          width: 100%;
+        }
+      }
+      .sidebar__score {
+        display: flex;
+        padding: 2.5rem 1.5rem 2.75rem;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        flex: 1;
+      }
+      @media screen and (min-width: 895px) {
+        .sidebar__score {
+          flex: auto;
+        }
+      }
+      .launch-widget {
+        display: none;
+      }
+      @media screen and (min-width: 895px) {
+        .launch-widget {
+          width: 100%;
+          display: flex;
+          height: 65px;
+          align-items: center;
+        }
+      }
+      .colors {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-left: 0;
+        height: 600px;
+      }
+      @media screen and (min-width: 895px) {
+        .colors {
+          margin-left: 380px;
+          height: 100%;
+          flex: auto;
+        }
+      }
+      .color {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        height: 500px;
+      }
+      @media screen and (min-width: 895px) {
+        .color {
+          max-height: 50vh;
+        }
+      }
+      .text-box {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        padding: 1rem 2rem;
+        transition: .3s ease;
+      }
+      @media screen and (min-width: 895px) {
+        .text-box {
+          height: calc(100% - 130px);
+          max-width: calc(100% - 130px);
+        }
+      }
+      .footer {
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+        flex-direction: column;
+        padding: 1rem;
+      }
+      @media screen and (min-width: 895px) {
+        .footer {
+          position: absolute;
+          bottom: 1rem;
+          left: 1rem;
+          display: flex;
+          align-items: flex-start;
+          width: 300px;
+          flex-direction: column;
+          padding: 0;
+        }
+      }</style></head><body><main class="container"><div class="sidebar"><div class="sidebar__container"><div class="launch-widget"><button class="launch-widget__btn" data-launch-widget>Launch Widget</button></div><div class="sidebar__score"><p class="sidebar__score--ratio"></p><p class="sidebar__score--info"><a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html" target="_blank">WCAG 2.0 level AA</a> requires a contrast ratio of 4.5 for normal text and 3 for large text.</p></div><div class="sidebar__colors"><div class="sidebar__color"><input id="color1-value" class="sidebar__color--input" type="text" value="#BEDEDE" data-color-input="one"> <button class="undo-change" data-undo-one>Undo</button><div class="sidebar__color--data"><button class="adjust-color" data-adjust-lighten-one>Lighten</button> <button class="adjust-color" data-adjust-darken-one>Darken</button> <button class="adjust-color" data-adjust-black-one>Black</button> <button class="adjust-color" data-adjust-white-one>White</button></div></div><div class="sidebar__color"><input id="color2-value" class="sidebar__color--input" type="text" value="#333333" data-color-input="two"> <button class="undo-change" data-undo-two>Undo</button><div class="sidebar__color--data"><button class="adjust-color" data-adjust-lighten-two>Lighten</button> <button class="adjust-color" data-adjust-darken-two>Darken</button> <button class="adjust-color" data-adjust-black-two>Black</button> <button class="adjust-color" data-adjust-white-two>White</button></div></div></div></div></div><div class="colors"><div class="color" data-color-one><div class="text-box"><h1>Forage post-ironic celiac</h1><p>Forage post-ironic celiac, sustainable kinfolk 90's cred microdosing <span>narwhal 3 wolf moon tousled raw denim.</span> Forage post-ironic celiac, sustainable kinfolk 90's cred microdosing <span>narwhal 3 wolf moon tousled raw denim.</span></p></div></div><div class="color" data-color-two><div class="text-box"><h1>Forage post-ironic celiac</h1><p>Forage post-ironic celiac, sustainable kinfolk 90's cred microdosing <span>narwhal 3 wolf moon tousled raw denim.</span> Forage post-ironic celiac, sustainable kinfolk 90's cred microdosing <span>narwhal 3 wolf moon tousled raw denim.</span></p></div></div></div><div class="footer"><p>Color Contrast Checker by <a href="#">Mari Johannessen</a></p><p>Based on the <a href="#">WCAG 2.0 Level AA</a> standards</p></div></main><noscript id="deferred-styles"><link rel="stylesheet" type="text/css" href="styles/main.css"></noscript><script>var loadDeferredStyles = function() {
+        var addStylesNode = document.getElementById("deferred-styles");
+        var replacement = document.createElement("div");
+        replacement.innerHTML = addStylesNode.textContent;
+        document.body.appendChild(replacement)
+        addStylesNode.parentElement.removeChild(addStylesNode);
+      };
+      var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+          webkitRequestAnimationFrame || msRequestAnimationFrame;
+      if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+      else window.addEventListener('load', loadDeferredStyles);</script><script async type="application/javascript" src="js/script.min.js"></script></body></html>
