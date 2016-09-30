@@ -32,7 +32,7 @@ Click on 'Launch Widget' to open the page in a new window adjusted to the size o
 
 - Performance grade: 100
 - Page size: 7.5kb
-- Faster than 99% of tested sites on <a href="https://tools.pingdom.com">pingdom</a> (From San Diego, CA)
+- Faster than 99% of tested sites on <a href="https://tools.pingdom.com">pingdom</a> (Tested from their San Jose, CA location)
 
 ### In Development:
 
