@@ -206,7 +206,7 @@
           </div>
           <div class="sidebar__colors">
             <div class="sidebar__color">
-              <input id="color1-value" class="sidebar__color--input" type="text" value="#BEDEDE" data-color-input="one" />
+              <input id="color1-value" class="sidebar__color--input" type="text" value="#FFF275" data-color-input="one" />
               <button class="undo-change" data-undo-one>Undo</button>
               <div class="sidebar__color--data">
                 <button class="adjust-color" data-adjust-lighten-one>Lighten</button>
@@ -248,7 +248,7 @@
       </div>
     </main>
     <noscript id="deferred-styles">
-      <link rel="stylesheet" type="text/css" href="styles/main.css"/>
+      <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/marijohannessen/color-contrast-checker/master/styles/main.css"/>
     </noscript>
     <script>
       var loadDeferredStyles = function() {
@@ -263,6 +263,6 @@
       if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
       else window.addEventListener('load', loadDeferredStyles);
     </script>
-    <script async type="application/javascript" src="js/script.min.js"></script>
+    <script async type="application/javascript" src="https://cdn.rawgit.com/marijohannessen/color-contrast-checker/master/js/script.min.js"></script>
   </body>
 </html>
