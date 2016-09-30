@@ -17,7 +17,7 @@
       html {
         height: 100%;
       }
-      @media screen and (min-width: 895px) {
+      @media all and (min-width: 895px) {
         body {
           height: 100vh;
         }
@@ -29,7 +29,7 @@
         height: 100%;
         transition: .3s ease-in-out;
       }
-      @media screen and (min-width: 895px) {
+      @media all and (min-width: 895px) {
         .container {
           flex-direction: row;
         }
@@ -41,12 +41,12 @@
         align-items: flex-start;
         flex-direction: column;
       }
-      @media screen and (min-width: 643px) {
+      @media all and (min-width: 643px) {
         .sidebar {
           min-height: 290px;
         }
       }
-      @media screen and (min-width: 895px) {
+      @media all and (min-width: 895px) {
         .sidebar {
           position: absolute;
           height: 100%;
@@ -63,7 +63,7 @@
         align-items: flex-start;
         justify-content: space-between;
       }
-      @media screen and (min-width: 895px) {
+      @media all and (min-width: 895px) {
         .sidebar__container {
           justify-content: flex-start;
         }
@@ -74,12 +74,12 @@
         align-items: center;
         flex-direction: column;
       }
-      @media screen and (min-width: 643px) {
+      @media all and (min-width: 643px) {
         .sidebar__colors {
           flex-direction: row;
         }
       }
-      @media screen and (min-width: 895px) {
+      @media all and (min-width: 895px) {
         .sidebar__colors {
           flex-direction: column;
         }
@@ -93,12 +93,12 @@
         min-height: 130px;
         transition: width .3s;
       }
-      @media screen and (min-width: 643px) {
+      @media all and (min-width: 643px) {
         .sidebar__color {
           width: 50%;
         }
       }
-      @media screen and (min-width: 895px) {
+      @media all and (min-width: 895px) {
         .sidebar__color {
           width: 100%;
         }
@@ -110,7 +110,7 @@
         justify-content: center;
         width: 100%;
       }
-      @media screen and (min-width: 895px) {
+      @media all and (min-width: 895px) {
         .sidebar__score {
           flex: auto;
         }
@@ -118,7 +118,7 @@
       .launch-widget {
         display: none;
       }
-      @media screen and (min-width: 895px) {
+      @media all and (min-width: 895px) {
         .launch-widget {
           width: 100%;
           display: flex;
@@ -135,7 +135,7 @@
         margin-left: 0;
         height: 100%;
       }
-      @media screen and (min-width: 895px) {
+      @media all and (min-width: 895px) {
         .colors {
           margin-left: 380px;
           height: 100%;
@@ -150,7 +150,7 @@
         justify-content: center;
         height: 100%;
       }
-      @media screen and (min-width: 895px) {
+      @media all and (min-width: 895px) {
         .color {
           height: 50%;
         }
@@ -164,7 +164,7 @@
         padding: 2rem;
         transition: .3s ease;
       }
-      @media screen and (min-width: 895px) {
+      @media all and (min-width: 895px) {
         .text-box {
           height: calc(100% - 130px);
           width: calc(100% - 130px);
@@ -180,7 +180,7 @@
         flex-direction: column;
         padding: 1.5rem 1.5rem 2rem;
       }
-      @media screen and (min-width: 895px) {
+      @media all and (min-width: 895px) {
         .footer {
           position: absolute;
           bottom: 1rem;
@@ -208,13 +208,13 @@
           </div>
           <div class="sidebar__colors">
             <div class="sidebar__color">
-              <input aria-label="Enter the hex value for color one" name="color-one-value" id="color1-value" class="sidebar__color--input" type="text" value="#FFF275" data-color-input="one" maxlength="7" placeholder="#000000" />
+              <input aria-label="Enter the hex value for color one" name="color-one-value" id="color1-value" class="sidebar__color--input" type="text" value="#55D6BE" data-color-input="one" maxlength="7" placeholder="#000000" />
               <button aria-hidden="true" class="undo-change" data-undo-one>Undo</button>
               <div class="sidebar__color--data">
                 <button aria-label="Lighten color one" type="button" name="lighten-color-one" class="adjust-color" data-adjust-lighten-one>Lighten</button>
                 <button aria-label="Darken color one" type="button" name="darken-color-one" class="adjust-color" data-adjust-darken-one>Darken</button>
-                <button aria-label="Toggle black for color one" type="button" name="black-color-one" class="adjust-color" data-adjust-black-one>Black</button>
-                <button aria-label="Toggle white for color one" type="button" name="white-color-one" class="adjust-color" data-adjust-white-one>White</button>
+                <button aria-label="Toggle black for color one" type="button" name="black-color-one" class="adjust-color" data-adjust-bw="black">Black</button>
+                <button aria-label="Toggle white for color one" type="button" name="white-color-one" class="adjust-color" data-adjust-bw="white">White</button>
               </div>
             </div>
             <div class="sidebar__color">
@@ -223,8 +223,8 @@
               <div class="sidebar__color--data">
                 <button aria-label="Lighten color two" type="button" name="lighten-color-two" class="adjust-color" data-adjust-lighten-two>Lighten</button>
                 <button aria-label="Darken color two" type="button" name="darken-color-two" class="adjust-color" data-adjust-darken-two>Darken</button>
-                <button aria-label="Toggle black for color two" type="button" name="black-color-two" class="adjust-color" data-adjust-black-two>Black</button>
-                <button aria-label="Toggle white for color two" type="button" name="white-color-two" class="adjust-color" data-adjust-white-two>White</button>
+                <button aria-label="Toggle black for color two" type="button" name="black-color-two" class="adjust-color" data-adjust-bw="black">Black</button>
+                <button aria-label="Toggle white for color two" type="button" name="white-color-two" class="adjust-color" data-adjust-bw="white">White</button>
               </div>
             </div>
           </div>
@@ -250,7 +250,7 @@
       </footer>
     </main>
     <noscript id="deferred-styles">
-      <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/marijohannessen/color-contrast-checker/9d474f3d5e7631ba50bbfd6b93ba39144efe442c/styles/main.css"/>
+      <link rel="stylesheet" type="text/css" href="styles/main.css"/>
     </noscript>
     <script>
       var loadDeferredStyles = function() {
@@ -265,6 +265,6 @@
       if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
       else window.addEventListener('load', loadDeferredStyles);
     </script>
-    <script async type="application/javascript" src="https://cdn.rawgit.com/marijohannessen/color-contrast-checker/master/js/script.min.js"></script>
+    <script async type="application/javascript" src="js/script.min.js"></script>
   </body>
 </html>

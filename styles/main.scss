@@ -37,7 +37,7 @@
       }
     }
 
-    @media screen and (min-width: 643px) {
+    @media all and (min-width: 643px) {
       .sidebar__color--input {
         border-left: 1px solid #222;
         border-right: 1px solid #222;
@@ -56,7 +56,7 @@
       }
     }
 
-    @media screen and (min-width: 895px) {
+    @media all and (min-width: 895px) {
       .sidebar__color--input {
         border: 0;
       }
@@ -132,7 +132,7 @@
     font-weight: 700;
   }
 
-  @media screen and (max-width: 643px) and (max-height: 830px) {
+  @media all and (max-width: 643px) and (max-height: 830px) {
     display: none;
   }
 }
@@ -165,18 +165,29 @@
     line-height: 1.7;
     padding-right: 0;
 
-    @media screen and (min-width: 643px) {
+    @media all and (min-width: 643px) {
       padding-right: 7rem;
     }
 
-    @media screen and (min-width: 895px) {
+    @media all and (min-width: 895px) {
       font-size: 1rem;
       padding-right: 0;
     }
   }
 
   a {
-    color: black;
+    color: #333;
+    background-color: transparent;
+    font-weight: 700;
+    padding-bottom: .15rem;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: .3s;
+
+    &:hover,
+    &:focus {
+      border-bottom: 2px solid #333;
+    }
   }
 }
 
@@ -215,5 +226,12 @@
 
   a {
     color: white;
+    transition: .3s;
+    border-bottom: 1px solid transparent;
+
+    &:hover,
+    &:focus {
+      border-bottom: 1px solid white;
+    }
   }
 }

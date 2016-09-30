@@ -1,3 +1,4 @@
+/* HEX to RGB function */
 const hexToRgb = (hex) => {
   const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
   hex = hex.replace(shorthandRegex, function(m, r, g, b) {
@@ -11,6 +12,16 @@ const hexToRgb = (hex) => {
   } : null;
 };
 
+/* RGB to HEX function */
+const rgbToHex = (rgb) => {
+ rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+ return (rgb && rgb.length === 4) ? "#" +
+  ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+  ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+  ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
+}
+
+/* Function to lighten or darken the passed color */
 const lightenDarkenColor = (col, amt) => {
   let usePound = false;
   if (col[0] == "#") {
@@ -30,14 +41,7 @@ const lightenDarkenColor = (col, amt) => {
   return (usePound?"#":"") + String("000000" + (g | (b << 8) | (r << 16)).toString(16)).slice(-6);
 }
 
-const rgbToHex = (rgb) => {
- rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
- return (rgb && rgb.length === 4) ? "#" +
-  ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
-  ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
-  ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
-}
-
+/* Function that gets the sRGB value of a color brightness value */
 const checksRGB = (color) => {
   if (color <= 0.03928) {
     return (color / 12.92);
@@ -46,6 +50,7 @@ const checksRGB = (color) => {
   }
 }
 
+/* Function that returns a color object */
 const getColorObject = (color) => {
   const colorObj = {
     r: checksRGB(color.r/255),
@@ -55,6 +60,7 @@ const getColorObject = (color) => {
   return colorObj;
 };
 
+/* Function that calculates the ratio between two colors */
 const calculateRatio = (color1, color2) => {
   const colorOneObject = getColorObject(color1);
   const colorTwoObject = getColorObject(color2);
@@ -67,6 +73,7 @@ const calculateRatio = (color1, color2) => {
   }
 }
 
+/* Function that updates all the color values on the page */
 const updateAll = () => {
   const colorOne = document.querySelector('#color1-value').value;
   const colorTwo = document.querySelector('#color2-value').value;
@@ -93,6 +100,7 @@ const updateAll = () => {
   }
 }
 
+/* Click handler for the adjust color buttons */
 const clickHandler = (evt, cnt, hex) => {
   evt.stopPropagation();
   if (hex.length === 4) {
@@ -160,6 +168,7 @@ window.onload = () => {
 
   let counter = 0;
   let counter2 = 0;
+  let count = 0;
 
   document.querySelector('[data-undo-one]').addEventListener('click', (evt) => {
     colorOne.value = mainHexOne;
@@ -177,8 +186,8 @@ window.onload = () => {
 
   document.querySelector('[data-adjust-darken-one]').addEventListener('click', (evt) => {
     const undoBtn = evt.currentTarget.parentElement.parentElement.querySelector('[data-undo-one]');
-    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-white-one]').classList.remove('is-pressed');
-    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-black-one]').classList.remove('is-pressed');
+    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-bw="white"]').classList.remove('is-pressed');
+    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-bw="black"]').classList.remove('is-pressed');
     undoBtn.classList.add('is-shown');
     counter = counter-5;
     if (counter === 0) {
@@ -188,8 +197,8 @@ window.onload = () => {
   });
   document.querySelector('[data-adjust-lighten-one]').addEventListener('click', (evt) => {
     const undoBtn = evt.currentTarget.parentElement.parentElement.querySelector('[data-undo-one]');
-    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-white-one]').classList.remove('is-pressed');
-    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-black-one]').classList.remove('is-pressed');
+    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-bw="white"]').classList.remove('is-pressed');
+    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-bw="black"]').classList.remove('is-pressed');
     undoBtn.classList.add('is-shown');
     counter = counter+5;
     if (counter === 0) {
@@ -199,8 +208,8 @@ window.onload = () => {
   });
   document.querySelector('[data-adjust-darken-two]').addEventListener('click', (evt) => {
     const undoBtn = evt.currentTarget.parentElement.parentElement.querySelector('[data-undo-two]');
-    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-white-two]').classList.remove('is-pressed');
-    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-black-two]').classList.remove('is-pressed');
+    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-bw="white"]').classList.remove('is-pressed');
+    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-bw="black"]').classList.remove('is-pressed');
     undoBtn.classList.add('is-shown');
     counter2 = counter2-5;
     if (counter2 === 0) {
@@ -210,8 +219,8 @@ window.onload = () => {
   });
   document.querySelector('[data-adjust-lighten-two]').addEventListener('click', (evt) => {
     const undoBtn = evt.currentTarget.parentElement.parentElement.querySelector('[data-undo-two]');
-    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-white-two]').classList.remove('is-pressed');
-    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-black-two]').classList.remove('is-pressed');
+    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-bw="white"]').classList.remove('is-pressed');
+    evt.currentTarget.parentElement.parentElement.querySelector('[data-adjust-bw="black"]').classList.remove('is-pressed');
     undoBtn.classList.add('is-shown');
     counter2 = counter2+5;
     if (counter2 === 0) {
@@ -219,58 +228,40 @@ window.onload = () => {
     }
     clickHandler(evt, counter2, mainHexTwo);
   });
-  document.querySelector('[data-adjust-black-one]').addEventListener('click', (evt) => {
+
+  const toggleBlackWhite = (evt) => {
     evt.stopPropagation();
-    let parentInput = evt.currentTarget.parentElement.parentElement.querySelector('input');
-    if (parentInput.value === '#000000') {
-      parentInput.parentElement.querySelector('[data-undo-one]').classList.remove('is-shown');
-      evt.currentTarget.classList.remove('is-pressed');
-      parentInput.value = mainHexOne;
-    } else {
-      evt.currentTarget.classList.add('is-pressed');
-      evt.currentTarget.parentElement.querySelector('[data-adjust-white-one]').classList.remove('is-pressed');
-      parentInput.value = '#000000';
+    const button = evt.currentTarget;
+    let parentInput = button.parentElement.parentElement.querySelector('input');
+    const color = button.dataset.adjustBw;
+    const colorNumber = parentInput.dataset.colorInput;
+    let currentValue = colorNumber === 'one' ? mainHexOne : mainHexTwo;
+    let undoButton = colorNumber === 'one' ? '[data-undo-one]' : '[data-undo-two]';
+    if (color === 'black') {
+      if (parentInput.value === '#000000') {
+        parentInput.parentElement.querySelector(undoButton).classList.remove('is-shown');
+        button.classList.remove('is-pressed');
+        parentInput.value = currentValue;
+      } else {
+        evt.currentTarget.classList.add('is-pressed');
+        parentInput.value = '#000000';
+      }
+    } else if (color === 'white') {
+      if (parentInput.value === '#FFFFFF') {
+        parentInput.parentElement.querySelector(undoButton).classList.remove('is-shown');
+        button.classList.remove('is-pressed');
+        parentInput.value = currentValue;
+      } else {
+        evt.currentTarget.classList.add('is-pressed');
+        parentInput.value = '#FFFFFF';
+      }
     }
     updateAll();
-  });
-  document.querySelector('[data-adjust-white-one]').addEventListener('click', (evt) => {
-    evt.stopPropagation();
-    let parentInput = evt.currentTarget.parentElement.parentElement.querySelector('input');
-    if (parentInput.value === '#FFFFFF') {
-      parentInput.parentElement.querySelector('[data-undo-one]').classList.remove('is-shown');
-      evt.currentTarget.classList.remove('is-pressed');
-      parentInput.value = mainHexOne;
-    } else {
-      evt.currentTarget.classList.add('is-pressed');
-      evt.currentTarget.parentElement.querySelector('[data-adjust-black-one]').classList.remove('is-pressed');
-      parentInput.value = '#FFFFFF';
-    }
-    updateAll();
-  });
-  document.querySelector('[data-adjust-black-two]').addEventListener('click', (evt) => {
-    evt.stopPropagation();
-    let parentInput = evt.currentTarget.parentElement.parentElement.querySelector('input');
-    if (parentInput.value === '#000000') {
-      parentInput.parentElement.querySelector('[data-undo-two]').classList.remove('is-shown');
-      evt.currentTarget.classList.remove('is-pressed');
-      parentInput.value = mainHexTwo;
-    } else {
-      evt.currentTarget.classList.add('is-pressed');
-      parentInput.value = '#000000';
-    }
-    updateAll();
-  });
-  document.querySelector('[data-adjust-white-two]').addEventListener('click', (evt) => {
-    evt.stopPropagation();
-    let parentInput = evt.currentTarget.parentElement.parentElement.querySelector('input');
-    if (parentInput.value === '#FFFFFF') {
-      parentInput.parentElement.querySelector('[data-undo-two]').classList.remove('is-shown');
-      evt.currentTarget.classList.remove('is-pressed');
-      parentInput.value = mainHexTwo;
-    } else {
-      evt.currentTarget.classList.add('is-pressed');
-      parentInput.value = '#FFFFFF';
-    }
-    updateAll();
+  };
+
+  [... document.querySelectorAll('[data-adjust-bw]')].forEach(btn => {
+    btn.addEventListener('click', (evt) => {
+      toggleBlackWhite(evt);
+    });
   });
 };
