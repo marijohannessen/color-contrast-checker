@@ -107,7 +107,7 @@ const clickHandler = (evt, cnt, hex) => {
 window.onload = () => {
   const launchBtn = document.querySelector('[data-launch-widget]');
   launchBtn.addEventListener('click', (evt) => {
-    window.open('/', '', 'width=380, height=450, menubar=no, resizable=no');
+    window.open('https://marijohannessen.github.io/color-contrast-checker/', '', 'width=390, height=450, menubar=no, resizable=no');
   });
 
   const colorOne = document.querySelector('#color1-value');
@@ -163,16 +163,16 @@ window.onload = () => {
 
   document.querySelector('[data-undo-one]').addEventListener('click', (evt) => {
     colorOne.value = mainHexOne;
+    updateAll();
     evt.currentTarget.classList.remove('is-shown');
     counter = 0;
-    updateAll();
   });
 
   document.querySelector('[data-undo-two]').addEventListener('click', (evt) => {
     colorTwo.value = mainHexTwo;
+    updateAll();
     evt.currentTarget.classList.remove('is-shown');
     counter2 = 0;
-    updateAll();
   });
 
   document.querySelector('[data-adjust-darken-one]').addEventListener('click', (evt) => {

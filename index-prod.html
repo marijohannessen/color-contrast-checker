@@ -11,6 +11,10 @@
         padding: 0;
         margin: 0;
       }
+      body,
+      html {
+        height: 100%;
+      }
       @media screen and (min-width: 895px) {
         body {
           height: 100vh;
@@ -30,15 +34,21 @@
       }
       .sidebar {
         width: 100%;
+        min-height: 447px;
         display: flex;
         align-items: flex-start;
         flex-direction: column;
+      }
+      @media screen and (min-width: 643px) {
+        .sidebar {
+          min-height: 290px;
+        }
       }
       @media screen and (min-width: 895px) {
         .sidebar {
           position: absolute;
           height: 100%;
-          width: 380px;
+          width: 390px;
           top: 0;
           left: 0;
           justify-content: space-between;
@@ -47,7 +57,6 @@
       .sidebar__container {
         display: flex;
         width: 100%;
-        min-height: 320px;
         flex-direction: column;
         align-items: flex-start;
         justify-content: space-between;
@@ -79,6 +88,7 @@
         align-items: center;
         justify-content: flex-end;
         width: 100%;
+        min-height: 130px;
         transition: width .3s;
       }
       @media screen and (min-width: 643px) {
@@ -97,7 +107,6 @@
         flex-direction: column;
         justify-content: center;
         width: 100%;
-        flex: 1;
       }
       @media screen and (min-width: 895px) {
         .sidebar__score {
@@ -122,12 +131,13 @@
         align-items: center;
         width: 100%;
         margin-left: 0;
-        height: 600px;
+        height: 100%;
       }
       @media screen and (min-width: 895px) {
         .colors {
           margin-left: 380px;
           height: 100%;
+          max-height: 100%;
           flex: auto;
         }
       }
@@ -136,11 +146,11 @@
         width: 100%;
         align-items: center;
         justify-content: center;
-        height: 500px;
+        height: 100%;
       }
       @media screen and (min-width: 895px) {
         .color {
-          max-height: 50vh;
+          height: 50%;
         }
       }
       .text-box {
@@ -149,13 +159,16 @@
         flex-direction: column;
         height: 100%;
         width: 100%;
-        padding: 1rem 2rem;
+        padding: 2rem;
         transition: .3s ease;
       }
       @media screen and (min-width: 895px) {
         .text-box {
           height: calc(100% - 130px);
-          max-width: calc(100% - 130px);
+          width: calc(100% - 130px);
+          max-height: 300px;
+          max-width: 900px;
+          padding: 2rem 3rem;
         }
       }
       .footer {
@@ -163,7 +176,7 @@
         align-items: flex-start;
         width: 100%;
         flex-direction: column;
-        padding: 1rem;
+        padding: 1.5rem 1.5rem 2rem;
       }
       @media screen and (min-width: 895px) {
         .footer {
@@ -175,6 +188,7 @@
           width: 300px;
           flex-direction: column;
           padding: 0;
+          height: auto;
         }
       }
     </style>
@@ -184,7 +198,7 @@
       <div class="sidebar">
         <div class="sidebar__container">
           <div class="launch-widget">
-            <button class="launch-widget__btn" data-launch-widget>Launch Widget</button>
+            <button class="launch-widget__btn" data-launch-widget tabindex="0">Launch Widget</button>
           </div>
           <div class="sidebar__score">
             <p class="sidebar__score--ratio"></p>
