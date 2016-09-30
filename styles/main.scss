@@ -72,16 +72,17 @@
       font-size: 14px;
       font-weight: 700;
       color: #6B6B6B;
-      opacity: 0;
       transition: .3s;
       cursor: pointer;
+      clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+      clip: rect(1px, 1px, 1px, 1px);
 
       &:hover {
         color: #333;
       }
 
       &.is-shown {
-        opacity: 1;
+        clip: auto;
       }
     }
 

@@ -48,13 +48,15 @@
       font-size: 14px;
       font-weight: 700;
       color: #6B6B6B;
-      opacity: 0;
       transition: .3s;
-      cursor: pointer; }
+      cursor: pointer;
+      clip: rect(1px 1px 1px 1px);
+      /* IE6, IE7 */
+      clip: rect(1px, 1px, 1px, 1px); }
       .sidebar__color .undo-change:hover {
         color: #333; }
       .sidebar__color .undo-change.is-shown {
-        opacity: 1; }
+        clip: auto; }
     .sidebar__color .adjust-color {
       width: 25%;
       height: 100%;
