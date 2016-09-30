@@ -8,13 +8,13 @@
 - Adjust a color by clicking on 'Lighten' or 'Darken' until the contrast ratio is green.
 - Toggle a black or white background by clicking on 'Black' or 'White'.
 
-![screenshot](https://cloud.githubusercontent.com/assets/5447411/19009625/6b540fae-873b-11e6-98fe-1189f680bb1f.png)
+<img src="https://cloud.githubusercontent.com/assets/5447411/19009625/6b540fae-873b-11e6-98fe-1189f680bb1f.png" width="700px" />
 
 #### Widget
 
 Click on 'Launch Widget' to open the page in a new window adjusted to the size of the calculator (only available on bigger devices).
 
-![screenshot](https://cloud.githubusercontent.com/assets/5447411/19009624/6b5291ec-873b-11e6-8f9a-ca1ed384984a.png)
+<img src="https://cloud.githubusercontent.com/assets/5447411/19009624/6b5291ec-873b-11e6-8f9a-ca1ed384984a.png" width="300px" />
 
 #### Made with:
 - HTML
