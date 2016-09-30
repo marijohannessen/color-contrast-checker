@@ -165,12 +165,14 @@ window.onload = () => {
     colorOne.value = mainHexOne;
     evt.currentTarget.classList.remove('is-shown');
     counter = 0;
+    updateAll();
   });
 
   document.querySelector('[data-undo-two]').addEventListener('click', (evt) => {
     colorTwo.value = mainHexTwo;
     evt.currentTarget.classList.remove('is-shown');
     counter2 = 0;
+    updateAll();
   });
 
   document.querySelector('[data-adjust-darken-one]').addEventListener('click', (evt) => {
