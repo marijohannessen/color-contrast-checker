@@ -1,5 +1,5 @@
 # Color Contrast Checker
-
+### <a href="https://marijohannessen.github.io/color-contrast-checker/" target="_blank">Click here for live version</a>
 ### Based on the <a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html">WCAG 2.0 level AA</a> color contrast requirements.
 
 #### How to use
