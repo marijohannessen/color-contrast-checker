@@ -1,5 +1,6 @@
 # Color Contrast Checker
 ### <a href="https://marijohannessen.github.io/color-contrast-checker/" target="_blank">Click here for live version</a>
+### <a href="http://color-contrast-checker.azurewebsites.net" target="_blank">Live version on Azure</a>
 ### Based on the <a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html">WCAG 2.0 level AA</a> color contrast requirements. Made for <a href="https://a-k-apart.com/">10k Apart Contest</a>.
 
 ### How to use
